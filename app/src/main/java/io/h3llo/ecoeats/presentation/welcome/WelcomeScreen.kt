@@ -41,7 +41,6 @@ fun WelcomeScreen(
         ) {
 
             WelcomeHeader()
-
         }
         Box(
             modifier = Modifier
