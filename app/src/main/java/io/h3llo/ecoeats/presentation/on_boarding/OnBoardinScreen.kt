@@ -1,5 +1,6 @@
 package io.h3llo.ecoeats.presentation.on_boarding
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import io.h3llo.ecoeats.presentation.common.ButtonBasic
 import io.h3llo.ecoeats.presentation.common.ImageBasic
 import io.h3llo.ecoeats.presentation.common.TextBasic
 import io.h3llo.ecoeats.presentation.preview.PreviewDefault
@@ -33,7 +35,10 @@ import io.h3llo.ecoeats.ui.theme.Secondary
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun OnBoardingScreen(modifier: Modifier = Modifier) {
+fun OnBoardingScreen(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
 
     val pagerState = rememberPagerState()
     val onBoardingList = getDataOnboarding()
@@ -62,6 +67,17 @@ fun OnBoardingScreen(modifier: Modifier = Modifier) {
             OnBoardingFooter(pagerState = pagerState)
         }
 
+        FinishButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(01f),
+            pagerState = pagerState,
+            pages = onBoardingList,
+            onClick = {
+                onClick()
+            }
+        )
+
     }
 }
 
@@ -79,7 +95,7 @@ fun OnBoardingContent(
             description = "image1",
             modifier = Modifier
                 .fillMaxWidth(0.5f)
-                .fillMaxHeight(0.75f)
+                .fillMaxHeight(0.5f)
         )
         TextBasic(
             text = onBoardingPage.title,
@@ -116,6 +132,7 @@ fun OnBoardingContent(
 fun OnBoardingFooter(
     modifier: Modifier = Modifier,
     pagerState: PagerState
+
 ) {
     repeat(3) {iteration ->
         val color = if(pagerState.currentPage == iteration ) Primary else Secondary
@@ -130,9 +147,38 @@ fun OnBoardingFooter(
 
 }
 
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun FinishButton(
+    modifier: Modifier = Modifier,
+    pagerState: PagerState,
+    pages:List<OnBoardingPage>,
+    onClick: () -> Unit
+) {
+
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        AnimatedVisibility(
+            visible = pagerState.currentPage == pages.size -1
+        ) {
+            ButtonBasic(
+                modifier = Modifier.padding(bottom = 16.dp),
+                text = "Finish",
+                onClick = {
+                    onClick()
+                }
+            )
+        }
+    }
+
+    
+}
+
 @PreviewDefault
 @Composable
 private fun OnBoardingScreenPreview() {
 
-    OnBoardingScreen()
+    OnBoardingScreen(onClick = {})
 }

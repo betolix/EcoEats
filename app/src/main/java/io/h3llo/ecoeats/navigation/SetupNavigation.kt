@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import io.h3llo.ecoeats.presentation.on_boarding.OnBoardingScreen
+import io.h3llo.ecoeats.presentation.sign_in.SignInScreen
 import io.h3llo.ecoeats.presentation.welcome.WelcomeScreen
 
 @Composable
@@ -26,7 +27,13 @@ fun SetupNavigation() {
             )
         }
         composable(route = "onboarding_screen") {
-            OnBoardingScreen()
+            OnBoardingScreen(){
+                navController.popBackStack()
+                navController.navigate("sign_in_screen")
+            }
+        }
+        composable(route="sign_in_screen"){
+            SignInScreen()
         }
     }
 
