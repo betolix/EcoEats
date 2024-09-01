@@ -16,7 +16,7 @@ fun SetupNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Welcome.route
+        startDestination = Screen.SignIn.route
     ) {
         composable(route = Screen.Welcome.route) {
             WelcomeScreen(

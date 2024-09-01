@@ -72,4 +72,8 @@ dependencies {
 
     //PAGER
     implementation ("com.google.accompanist:accompanist-pager:0.28.0")
+
+    //ICONS
+    implementation ("androidx.compose.material:material-icons-extended:1.6.8")
+
 }
