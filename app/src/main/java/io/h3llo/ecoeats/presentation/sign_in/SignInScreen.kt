@@ -40,6 +40,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -130,6 +131,7 @@ fun SignInScreen(modifier: Modifier = Modifier) {
             )
             SpacerComponent(modifier = Modifier.padding(top = 42.dp))
             OutlinedButton(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = {},
                 content = {
                     TextBasic(
@@ -160,6 +162,9 @@ fun SignInContent(modifier: Modifier = Modifier) {
     var password by remember {
         mutableStateOf("")
     }
+    var visualTransformation by remember{
+        mutableStateOf(false)
+    }
 
     TextBasic(
         text = "Login", style = TextStyle(
@@ -186,7 +191,9 @@ fun SignInContent(modifier: Modifier = Modifier) {
             }
         ),
         trailingIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                email = ""
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Clear,
                     contentDescription = "Clear"
@@ -212,20 +219,21 @@ fun SignInContent(modifier: Modifier = Modifier) {
             }
         ),
         trailingIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = { visualTransformation = !visualTransformation}) {
                 Icon(
-                    imageVector = Icons.Filled.VisibilityOff,
-                    contentDescription = "Clear"
+                    imageVector = if( visualTransformation )Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                    contentDescription = "Visible"
                 )
             }
         },
+        visualTransformation = if(visualTransformation) PasswordVisualTransformation() else VisualTransformation.None,
         isError = false,
     )
     Box (
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
     ){
-        ButtonBasic(
+        ButtonBasic( modifier = Modifier.fillMaxWidth(),
             text = "Ingresar",
             onClick = {  }
         )
