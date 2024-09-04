@@ -76,4 +76,19 @@ dependencies {
     //ICONS
     implementation ("androidx.compose.material:material-icons-extended:1.6.8")
 
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    // INTERCEPTOR
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
+
+
+    // INTEGRACION DE VIEWMODEL EN COMPOSE
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    // NECESARIA PARA USAR viewModel() EN COMPOSABLES
+    implementation("androidx.activity:activity-compose:1.7.2")
+
+
+
+
 }

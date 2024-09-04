@@ -1,5 +1,6 @@
 package io.h3llo.ecoeats.presentation.sign_in
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.HorizontalAlignmentLine
 import androidx.compose.ui.layout.VerticalAlignmentLine
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -44,6 +47,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import io.h3llo.ecoeats.R
 import io.h3llo.ecoeats.presentation.common.ButtonBasic
 import io.h3llo.ecoeats.presentation.common.ImageBasic
@@ -56,13 +60,39 @@ import io.h3llo.ecoeats.ui.theme.Secondary
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
-fun SignInScreen(modifier: Modifier = Modifier) {
+fun SignInScreen(
+    modifier: Modifier = Modifier,
+    viewModel: SignInViewModel = viewModel()
+) {
+
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
+
+        val state = viewModel.state
+        val context = LocalContext.current
+
+        if(state.success != null){
+            println(state.success?.email)
+            Toast.makeText(context,state.success?.token, Toast.LENGTH_SHORT).show()
+        }
+
+        if (state.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+
+        if (state.success != null) {
+            println(state.success?.email)
+        }
+
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .weight(0.5f),
             // .background(Color.Blue),
@@ -81,7 +111,7 @@ fun SignInScreen(modifier: Modifier = Modifier) {
 
         ) {
 
-            SignInContent()
+            SignInContent(viewModel = viewModel)
 
         }
 
@@ -94,14 +124,11 @@ fun SignInScreen(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally,
 
 
-
-
-
             ) {
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
-            ){
+                horizontalArrangement = Arrangement.Center,
+            ) {
                 TextBasic(
                     text = "¿Olvidaste tu constraseña?  ", style = TextStyle(
                         color = Color.Black,
@@ -120,7 +147,7 @@ fun SignInScreen(modifier: Modifier = Modifier) {
                 )
             }
             SpacerComponent(modifier = Modifier.padding(top = 42.dp))
-            HorizontalDivider(modifier = Modifier.width(300.dp) )
+            HorizontalDivider(modifier = Modifier.width(300.dp))
             TextBasic(
                 text = "¿Aún no tienes cuenta?  ", style = TextStyle(
                     color = Color.Black,
@@ -135,13 +162,14 @@ fun SignInScreen(modifier: Modifier = Modifier) {
                 onClick = {},
                 content = {
                     TextBasic(
-                        text = "Regístrate", style = TextStyle(
+                        text = "Regístrate",
+                        style = TextStyle(
                             color = Primary,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Normal
                         ),
 
-                    )
+                        )
                 }
             )
 
@@ -154,7 +182,10 @@ fun SignInScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SignInContent(modifier: Modifier = Modifier) {
+fun SignInContent(
+    modifier: Modifier = Modifier,
+    viewModel: SignInViewModel
+) {
 
     var email by remember {
         mutableStateOf("")
@@ -162,7 +193,7 @@ fun SignInContent(modifier: Modifier = Modifier) {
     var password by remember {
         mutableStateOf("")
     }
-    var visualTransformation by remember{
+    var visualTransformation by remember {
         mutableStateOf(false)
     }
 
@@ -219,24 +250,29 @@ fun SignInContent(modifier: Modifier = Modifier) {
             }
         ),
         trailingIcon = {
-            IconButton(onClick = { visualTransformation = !visualTransformation}) {
+            IconButton(onClick = { visualTransformation = !visualTransformation }) {
                 Icon(
-                    imageVector = if( visualTransformation )Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                    imageVector = if (visualTransformation) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                     contentDescription = "Visible"
                 )
             }
         },
-        visualTransformation = if(visualTransformation) PasswordVisualTransformation() else VisualTransformation.None,
+        visualTransformation = if (visualTransformation) PasswordVisualTransformation() else VisualTransformation.None,
         isError = false,
     )
-    Box (
+    Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
-    ){
-        ButtonBasic( modifier = Modifier.fillMaxWidth(),
+    ) {
+        ButtonBasic(modifier = Modifier.fillMaxWidth(),
             text = "Ingresar",
-            onClick = {  }
+            onClick = {
+                viewModel.signIn(email, password)
+            }
         )
+    }
+    if (viewModel.state.isLoading) {
+        CircularProgressIndicator()
     }
 
 
@@ -252,8 +288,8 @@ fun SignInHeader(modifier: Modifier = Modifier) {
     )
 }
 
-@PreviewDefault
-@Composable
-private fun SignInScreenPreview() {
-    SignInScreen()
-}
+//@PreviewDefault
+//@Composable
+//private fun SignInScreenPreview() {
+//    SignInScreen()
+//}
