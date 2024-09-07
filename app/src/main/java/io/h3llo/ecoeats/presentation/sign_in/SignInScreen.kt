@@ -29,6 +29,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -73,10 +74,18 @@ fun SignInScreen(
         val state = viewModel.state
         val context = LocalContext.current
 
-        if(state.success != null){
-            println(state.success?.email)
-            Toast.makeText(context,state.success?.token, Toast.LENGTH_SHORT).show()
+        LaunchedEffect(key1 = state.success, key2 = state.error) {
+            if (state.success != null) {
+                println(state.success?.email)
+                Toast.makeText(context, state.success?.email, Toast.LENGTH_LONG).show()
+            }
+            if (state.error != null) {
+                println(state.error)
+                Toast.makeText(context, state.error, Toast.LENGTH_LONG).show()
+            }
+
         }
+
 
         if (state.isLoading) {
             Box(

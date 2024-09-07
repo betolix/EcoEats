@@ -14,14 +14,13 @@ import kotlinx.coroutines.withContext
 
 class SignInViewModel : ViewModel() {
 
-    //ESTADOS COMPONENTES
+    //COMPONENT STATE
     var formState by mutableStateOf(LoginFormState())
 
-
-    //ESTADOS PANTALLA
+    //SCREEN STATE
     var state by mutableStateOf(LoginScreenState())
 
-    //EVENTOS
+    //EVENTS
     fun onEvent( event : LoginFormEvent){
         when(event){
             is LoginFormEvent.EmailChange -> {
@@ -54,10 +53,10 @@ class SignInViewModel : ViewModel() {
 
                 when(response){
                     is Result.Error -> {
-                        state = state.copy(isLoading = false, error = response.message)
+                        state = state.copy(isLoading = false, error = response.message, success = null)
                     }
                     is Result.Success -> {
-                        state = state.copy(isLoading = false, success =  response.data)
+                        state = state.copy(isLoading = false, success =  response.data, error = null)
                     }
                 }
 

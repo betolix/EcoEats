@@ -7,19 +7,23 @@ import io.h3llo.ecoeats.data.networking.model.UserDto
 
 class AuthRepository {
 
-    suspend fun signIn(email: String, password: String):Result<UserDto> {
+    suspend fun signIn(email: String, password: String): Result<UserDto> {
         try {
             val response = Api.build().signIn(
                 LoginRequest(
-                    email = "betolix@gmail.com",
-                    password = "123"
+                    email = email, //"betolix@gmail.com",
+                    password = password, //"123"
                 )
             )
 
             if (response.isSuccessful) {
                 val data = response.body()
-                return Result.Success(data = data?.data)
-            }else{
+                if (data?.success == true) {
+                    return Result.Success(data = data?.data)
+                }else{
+                    return Result.Error(message = data?.message ?: "Error desconocido")
+                }
+            } else {
                 return Result.Error(message = response.message().toString())
             }
         } catch (ex: Exception) {
