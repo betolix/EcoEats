@@ -187,6 +187,7 @@ fun SignInContent(
     viewModel: SignInViewModel
 ) {
 
+    /*
     var email by remember {
         mutableStateOf("")
     }
@@ -196,6 +197,7 @@ fun SignInContent(
     var visualTransformation by remember {
         mutableStateOf(false)
     }
+    */
 
     TextBasic(
         text = "Login", style = TextStyle(
@@ -207,9 +209,10 @@ fun SignInContent(
     )
     SpacerComponent(modifier = Modifier.height(8.dp))
     OutlinedTextFieldBasic(
-        text = email,
+        text = viewModel.formState.email,
         onValueChange = {
-            email = it
+            // email = it
+            viewModel.onEvent(LoginFormEvent.EmailChange(it))
         },
         textLabel = "Email",
         keyboardOptions = KeyboardOptions(
@@ -223,7 +226,8 @@ fun SignInContent(
         ),
         trailingIcon = {
             IconButton(onClick = {
-                email = ""
+                // email = ""
+                viewModel.onEvent(LoginFormEvent.EmailChange(""))
             }) {
                 Icon(
                     imageVector = Icons.Filled.Clear,
@@ -235,9 +239,10 @@ fun SignInContent(
     )
 
     OutlinedTextFieldBasic(
-        text = password,
+        text = viewModel.formState.password,
         onValueChange = {
-            password = it
+            // password = it
+            viewModel.onEvent(LoginFormEvent.PasswordChange(it))
         },
         textLabel = "Password",
         keyboardOptions = KeyboardOptions(
@@ -250,14 +255,17 @@ fun SignInContent(
             }
         ),
         trailingIcon = {
-            IconButton(onClick = { visualTransformation = !visualTransformation }) {
+            IconButton(onClick = {
+                //visualTransformation = !visualTransformation
+                viewModel.onEvent(LoginFormEvent.VisualTransformationChange(!viewModel.formState.visualTransformation))
+            }) {
                 Icon(
-                    imageVector = if (visualTransformation) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                    imageVector = if (viewModel.formState.visualTransformation) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                     contentDescription = "Visible"
                 )
             }
         },
-        visualTransformation = if (visualTransformation) PasswordVisualTransformation() else VisualTransformation.None,
+        visualTransformation = if (viewModel.formState.visualTransformation) PasswordVisualTransformation() else VisualTransformation.None,
         isError = false,
     )
     Box(
@@ -267,7 +275,8 @@ fun SignInContent(
         ButtonBasic(modifier = Modifier.fillMaxWidth(),
             text = "Ingresar",
             onClick = {
-                viewModel.signIn(email, password)
+                // viewModel.signIn(email, password)
+                viewModel.onEvent(LoginFormEvent.Submit)
             }
         )
     }

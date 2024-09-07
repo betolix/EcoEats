@@ -14,9 +14,33 @@ import kotlinx.coroutines.withContext
 
 class SignInViewModel : ViewModel() {
 
-    var state by mutableStateOf(LoginState())
+    //ESTADOS COMPONENTES
+    var formState by mutableStateOf(LoginFormState())
 
-    fun signIn(email: String, password: String) {
+
+    //ESTADOS PANTALLA
+    var state by mutableStateOf(LoginScreenState())
+
+    //EVENTOS
+    fun onEvent( event : LoginFormEvent){
+        when(event){
+            is LoginFormEvent.EmailChange -> {
+                formState = formState.copy(email = event.email)
+            }
+            is LoginFormEvent.PasswordChange -> {
+                formState = formState.copy(password =  event.password )
+            }
+            LoginFormEvent.Submit -> {
+                signIn()
+            }
+            is LoginFormEvent.VisualTransformationChange -> {
+                formState = formState.copy(visualTransformation = event.visualTransformation)
+            }
+        }
+    }
+
+
+    fun signIn() {
 
         val repository = AuthRepository()
 
@@ -25,7 +49,7 @@ class SignInViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO){
-                    repository.signIn(email, password)
+                    repository.signIn(formState.email, formState.password)
                 }
 
                 when(response){
