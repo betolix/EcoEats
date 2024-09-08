@@ -19,6 +19,10 @@ class AuthRepository {
             if (response.isSuccessful) {
                 val data = response.body()
                 if (data?.success == true) {
+
+                    val preferences = getSharedPreferences("PREFERENCES_TOKEN", 0).edit()
+                    preferences.putString("KEY_TOKEN", data?.data?.token)
+                    preferences.apply()
                     return Result.Success(data = data?.data)
                 }else{
                     return Result.Error(message = data?.message ?: "Error desconocido")

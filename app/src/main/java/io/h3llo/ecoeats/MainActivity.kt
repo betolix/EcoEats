@@ -26,6 +26,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // enableEdgeToEdge()
 
+        // val preferences = getSharedPreferences("PREFERENCES_TEST",0).edit()
+        // preferences.putString("KEY", "123")
+        // preferences.apply()
+
         setContent {
 
             SetupNavigation()
