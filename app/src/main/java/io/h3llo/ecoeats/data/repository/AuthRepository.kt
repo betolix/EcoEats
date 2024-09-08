@@ -1,11 +1,15 @@
 package io.h3llo.ecoeats.data.repository
 
+import android.content.SharedPreferences
 import io.h3llo.ecoeats.core.Result
 import io.h3llo.ecoeats.data.networking.Api
 import io.h3llo.ecoeats.data.networking.model.LoginRequest
 import io.h3llo.ecoeats.data.networking.model.UserDto
+import javax.inject.Inject
 
-class AuthRepository {
+class AuthRepository @Inject constructor(
+    val sharedPreferences: SharedPreferences
+) {
 
     suspend fun signIn(email: String, password: String): Result<UserDto> {
         try {
@@ -20,9 +24,10 @@ class AuthRepository {
                 val data = response.body()
                 if (data?.success == true) {
 
-                    val preferences = getSharedPreferences("PREFERENCES_TOKEN", 0).edit()
+                    val preferences = sharedPreferences.edit()
                     preferences.putString("KEY_TOKEN", data?.data?.token)
                     preferences.apply()
+
                     return Result.Success(data = data?.data)
                 }else{
                     return Result.Error(message = data?.message ?: "Error desconocido")
