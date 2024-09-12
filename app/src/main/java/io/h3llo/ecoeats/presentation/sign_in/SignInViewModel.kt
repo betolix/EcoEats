@@ -6,13 +6,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.h3llo.ecoeats.core.Result
 import io.h3llo.ecoeats.data.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SignInViewModel : ViewModel() {
+@HiltViewModel
+class SignInViewModel @Inject constructor(
+    val repository: AuthRepository
+) : ViewModel() {
 
     //COMPONENT STATE
     var formState by mutableStateOf(LoginFormState())
@@ -41,7 +46,8 @@ class SignInViewModel : ViewModel() {
 
     fun signIn() {
 
-        val repository = AuthRepository()
+        // val repository = AuthRepository()
+
 
         state = state.copy(isLoading = true)
 

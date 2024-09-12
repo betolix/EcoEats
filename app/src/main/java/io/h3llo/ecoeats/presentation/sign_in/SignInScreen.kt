@@ -48,6 +48,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import io.h3llo.ecoeats.R
 import io.h3llo.ecoeats.presentation.common.ButtonBasic
@@ -63,7 +64,8 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 @Composable
 fun SignInScreen(
     modifier: Modifier = Modifier,
-    viewModel: SignInViewModel = viewModel()
+    //viewModel: SignInViewModel = viewModel()
+    viewModel: SignInViewModel = hiltViewModel()
 ) {
 
 

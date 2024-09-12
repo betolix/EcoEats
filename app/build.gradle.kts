@@ -86,9 +86,9 @@ dependencies {
 
 
     // INTEGRACION DE VIEWMODEL EN COMPOSE
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    //      implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     // NECESARIA PARA USAR viewModel() EN COMPOSABLES
-    implementation("androidx.activity:activity-compose:1.7.2")
+    //      implementation("androidx.activity:activity-compose:1.7.2")
 
     // HILT - D.I.
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
@@ -96,6 +96,8 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.50")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
+    // SECURITY - CRYPTO
+    implementation("androidx.security:security-crypto:1.0.0-alpha02")
 
 
 

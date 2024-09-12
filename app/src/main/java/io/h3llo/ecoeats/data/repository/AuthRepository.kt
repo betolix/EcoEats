@@ -6,9 +6,10 @@ import io.h3llo.ecoeats.data.networking.Api
 import io.h3llo.ecoeats.data.networking.model.LoginRequest
 import io.h3llo.ecoeats.data.networking.model.UserDto
 import javax.inject.Inject
+import javax.inject.Named
 
 class AuthRepository @Inject constructor(
-    val sharedPreferences: SharedPreferences
+    @Named("provideSharedPreferencesEncrypted") val sharedPreferences: SharedPreferences
 ) {
 
     suspend fun signIn(email: String, password: String): Result<UserDto> {
