@@ -5,6 +5,8 @@ import io.h3llo.ecoeats.core.Result
 import io.h3llo.ecoeats.data.networking.Api
 import io.h3llo.ecoeats.data.networking.model.LoginRequest
 import io.h3llo.ecoeats.data.networking.model.UserDto
+import io.h3llo.ecoeats.data.util.Util
+import io.h3llo.ecoeats.data.util.Util.save
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -26,8 +28,14 @@ class AuthRepository @Inject constructor(
                 if (data?.success == true) {
 
                     val preferences = sharedPreferences.edit()
-                    preferences.putString("KEY_TOKEN", data?.data?.token)
-                    preferences.apply()
+                    // preferences.putString("KEY_TOKEN", data?.data?.token)
+                    // preferences.apply()
+
+                    // USING Util.saveSharedPreferences
+                    // Util.saveTokenSharedPreferences(sharedPreferences, data?.data?.token ?: "")
+
+                    // USING EXTENSION FUNCTIONS
+                    sharedPreferences.save(data?.data?.token ?: "")
 
                     return Result.Success(data = data?.data)
                 }else{

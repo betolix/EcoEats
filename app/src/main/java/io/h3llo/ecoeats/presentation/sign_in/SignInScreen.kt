@@ -65,7 +65,8 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 fun SignInScreen(
     modifier: Modifier = Modifier,
     //viewModel: SignInViewModel = viewModel()
-    viewModel: SignInViewModel = hiltViewModel()
+    viewModel: SignInViewModel = hiltViewModel(),
+    onNavigationHome: () -> Unit
 ) {
 
 
@@ -78,8 +79,9 @@ fun SignInScreen(
 
         LaunchedEffect(key1 = state.success, key2 = state.error) {
             if (state.success != null) {
-                println(state.success?.email)
+                // println(state.success?.email)
                 Toast.makeText(context, state.success?.email, Toast.LENGTH_LONG).show()
+                onNavigationHome()
             }
             if (state.error != null) {
                 println(state.error)
