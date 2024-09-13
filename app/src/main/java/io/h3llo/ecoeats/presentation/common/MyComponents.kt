@@ -133,6 +133,25 @@ fun OutlinedTextFieldBasic(
 
 }
 
+@Composable
+fun RatingBarcomponent(
+    modifier: Modifier = Modifier,
+    maxRating: Int = 5,
+    currentRating: Int,
+    starsColor: Color = Color.Yellow
+) {
+    Row {
+        for (i in 1..maxRating) {
+            Icon(
+                imageVector = if (i <= currentRating) Icons.Filled.Star else Icons.Filled.Star,
+                contentDescription = "Stars",
+                tint = if (i <= currentRating) starsColor else Color.Unspecified,
+                modifier = modifier.padding(2.dp)
+            )
+        }
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -140,10 +159,9 @@ fun TopBarComponent(
     modifier: Modifier = Modifier,
     title: String = "",
     imageVector: ImageVector,
-    onIconClick:()->Unit
+    onIconClick: ()->Unit
 ) {
     TopAppBar(
-        modifier = modifier,
         title = {
             if (title != "") {
                 Text(text = title)
@@ -152,36 +170,34 @@ fun TopBarComponent(
         actions = {
             Icon(
                 imageVector = Icons.Filled.Notifications,
-                contentDescription = "Notifications",
-                modifier = Modifier.padding(end = 8.dp)
+                contentDescription = "Notifications"
             )
         },
         navigationIcon = {
-            IconButton(onClick = { onIconClick() }) {
+            IconButton(onClick = { onIconClick() } ){
                 Icon(
                     imageVector = imageVector,
-                    contentDescription = "navigationIcon",
+                    contentDescription = "navigationIcon"
                 )
             }
+
         }
     )
 }
 
-@Composable
-fun RatingBarcomponent(
-    modifier: Modifier = Modifier,
-    maxRating:Int = 5,
-    currentRating: Int,
-    starsColor: Color = Color.Yellow
-) {
-    Row {
-        for (i in 1 .. maxRating){
-            Icon(
-                imageVector = if(i <= currentRating) Icons.Filled.Star else Icons.Filled.Star,
-                contentDescription = "Stars",
-                tint = if(i <= currentRating) starsColor else Color.Unspecified,
-                modifier = modifier.padding(2.dp)
-            )
-        }
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

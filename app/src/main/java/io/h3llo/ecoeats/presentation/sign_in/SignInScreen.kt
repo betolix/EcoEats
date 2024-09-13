@@ -80,7 +80,7 @@ fun SignInScreen(
         LaunchedEffect(key1 = state.success, key2 = state.error) {
             if (state.success != null) {
                 // println(state.success?.email)
-                Toast.makeText(context, state.success?.email, Toast.LENGTH_LONG).show()
+                Toast.makeText(context, state.success?.email, Toast.LENGTH_SHORT).show()
                 onNavigationHome()
             }
             if (state.error != null) {
