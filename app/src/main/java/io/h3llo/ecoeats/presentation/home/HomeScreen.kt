@@ -81,7 +81,9 @@ fun HomeScreen(
                             BadgedBox(
                                 badge = {
                                     if(item.badgeCount != null){
-                                        Text(text = item.badgeCount.toString())
+                                        Badge{
+                                            Text(text = item.badgeCount.toString())
+                                        }
                                     } else if(item.hasNews) {
                                         Badge()
 
@@ -109,3 +111,6 @@ fun HomeScreen(
     }
 
 }
+
+
+
