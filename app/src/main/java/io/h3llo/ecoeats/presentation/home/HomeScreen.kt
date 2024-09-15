@@ -114,7 +114,10 @@ fun HomeScreen(
 
     ){ paddingValues ->
 
-        SetupNavigationMenu(navController = navController)
+        SetupNavigationMenu(
+            navController = navController,
+            paddingValues = paddingValues
+        )
     }
 
 }

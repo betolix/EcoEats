@@ -1,5 +1,6 @@
 package io.h3llo.ecoeats.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -10,7 +11,10 @@ import io.h3llo.ecoeats.presentation.settings.SettingsScreen
 
 
 @Composable
-fun SetupNavigationMenu(navController: NavHostController) {
+fun SetupNavigationMenu(
+    navController: NavHostController,
+    paddingValues: PaddingValues
+) {
 
     // INVOCAR AL GRAFO
     NavHost(
@@ -18,13 +22,13 @@ fun SetupNavigationMenu(navController: NavHostController) {
         startDestination = ScreenMenu.Dishes.route
     ){
         composable (route = ScreenMenu.Dishes.route){
-            DishesScreen()
+            DishesScreen( paddingValues = paddingValues)
         }
         composable (route = ScreenMenu.Search.route){
-            SearchScreen()
+            SearchScreen( paddingValues = paddingValues)
         }
         composable (route = ScreenMenu.Settings.route){
-            SettingsScreen()
+            SettingsScreen( paddingValues = paddingValues)
         }
         composable (route = ScreenMenu.Detail.route){
             //DishesScreen()
