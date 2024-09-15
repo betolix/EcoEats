@@ -20,3 +20,22 @@ data class UserDto(
     @SerializedName("tokenFirebaseAuth") val tokenFirebaseAuth: String,
 )
 
+data class DishResponse(
+    @SerializedName("message") val message: String,
+    @SerializedName("success") val success: Boolean,
+    @SerializedName("data") val data: List<DishDto>
+)
+
+data class DishDto(
+    @SerializedName("data") val carbohydrates: Int,
+    @SerializedName("data") val description: String,
+    @SerializedName("data") val flagHeader: Boolean,
+    @SerializedName("data") val id: Int,
+    @SerializedName("image") val image: String,
+    @SerializedName("ingredients") val ingredients: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("price") val price: Int,
+    @SerializedName("proteins") val proteins: Int,
+    @SerializedName("rating") val rating: Double,
+    @SerializedName("thumbails") val thumbails: String
+)
