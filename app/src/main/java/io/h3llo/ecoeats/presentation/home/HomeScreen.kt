@@ -83,11 +83,11 @@ fun HomeScreen(
                         onClick ={
                             selectedItemIndex = index
                             navController.navigate(item.route){
-                                popUpTo(navController.graph.findStartDestination().id){
-                                    saveState = true
-                                }
-                                // launchSingleTop = true
-                                // restoreState = true
+                                // popUpTo(navController.graph.findStartDestination().id){
+                                //     saveState = true
+                                // }
+                                launchSingleTop = true
+                                restoreState = true
                             }
                         },
                         icon = {
