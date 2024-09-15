@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
 import io.h3llo.ecoeats.navigation.ScreenMenu
 import io.h3llo.ecoeats.navigation.SetupNavigationMenu
@@ -81,7 +82,13 @@ fun HomeScreen(
                         selected = selectedItemIndex == index,
                         onClick ={
                             selectedItemIndex = index
-                            navController.navigate(item.route)
+                            navController.navigate(item.route){
+                                popUpTo(navController.graph.findStartDestination().id){
+                                    saveState = true
+                                }
+                                // launchSingleTop = true
+                                // restoreState = true
+                            }
                         },
                         icon = {
                             BadgedBox(
