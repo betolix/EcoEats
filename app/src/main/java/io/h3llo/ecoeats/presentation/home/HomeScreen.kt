@@ -22,6 +22,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
+import io.h3llo.ecoeats.navigation.ScreenMenu
+import io.h3llo.ecoeats.navigation.SetupNavigationMenu
 import io.h3llo.ecoeats.presentation.common.TopBarComponent
 
 
@@ -36,14 +39,14 @@ fun HomeScreen(
             title = "Dishes",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-            route = "",
+            route = ScreenMenu.Dishes.route,
             hasNews = false,
         ),
         BottomNavigationItem(
             title = "Search",
             selectedIcon = Icons.Filled.Search,
             unselectedIcon = Icons.Outlined.Search,
-            route = "",
+            route = ScreenMenu.Search.route,
             hasNews = false,
             badgeCount = 4
         ),
@@ -51,7 +54,7 @@ fun HomeScreen(
             title = "Settingd",
             selectedIcon = Icons.Filled.Settings,
             unselectedIcon = Icons.Outlined.Settings,
-            route = "",
+            route = ScreenMenu.Settings.route,
             hasNews = true,
         ),
 
@@ -60,6 +63,8 @@ fun HomeScreen(
     var selectedItemIndex by remember {
         mutableStateOf(0)
     }
+
+    val navController = rememberNavController()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -76,6 +81,7 @@ fun HomeScreen(
                         selected = selectedItemIndex == index,
                         onClick ={
                             selectedItemIndex = index
+                            navController.navigate(item.route)
                         },
                         icon = {
                             BadgedBox(
@@ -106,8 +112,9 @@ fun HomeScreen(
             }
         }
 
-    ){ paddingValues ->{}
+    ){ paddingValues ->
 
+        SetupNavigationMenu(navController = navController)
     }
 
 }
