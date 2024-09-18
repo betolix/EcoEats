@@ -50,7 +50,7 @@ object Api {
         @POST("api/securities/login")
         suspend fun signIn(@Body request: LoginRequest) : Response<LoginResponse>
 
-        @GET("api/dish/")
+        @GET("api/dish")
         suspend fun getDishes(
             @Header("Authorization") token:String
         ) : Response<DishResponse>

@@ -12,5 +12,9 @@ object Util{
         val preferences = this.edit().putString("KEY_TOKEN", data).apply()
     }
 
+    fun SharedPreferences.getToken(): String {
+        return this.getString("KEY_TOKEN","") ?: ""
+    }
+
 }
 

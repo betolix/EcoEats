@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarOutline
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -143,7 +144,7 @@ fun RatingBarcomponent(
     Row {
         for (i in 1..maxRating) {
             Icon(
-                imageVector = if (i <= currentRating) Icons.Filled.Star else Icons.Filled.Star,
+                imageVector = if (i <= currentRating) Icons.Filled.Star else Icons.Filled.StarOutline,
                 contentDescription = "Stars",
                 tint = if (i <= currentRating) starsColor else Color.Unspecified,
                 modifier = modifier.padding(2.dp)

@@ -27,15 +27,15 @@ data class DishResponse(
 )
 
 data class DishDto(
-    @SerializedName("data") val carbohydrates: Int,
-    @SerializedName("data") val description: String,
-    @SerializedName("data") val flagHeader: Boolean,
-    @SerializedName("data") val id: Int,
+    @SerializedName("carbohydrates") val carbohydrates: Int,
+    @SerializedName("description") val description: String,
+    @SerializedName("flagHeader") val flagHeader: Boolean,
+    @SerializedName("id") val id: Int,
     @SerializedName("image") val image: String,
     @SerializedName("ingredients") val ingredients: String,
     @SerializedName("name") val name: String,
     @SerializedName("price") val price: Int,
     @SerializedName("proteins") val proteins: Int,
     @SerializedName("rating") val rating: Double,
-    @SerializedName("thumbails") val thumbails: String
+    @SerializedName("thumbnails") val thumbnails: String
 )
