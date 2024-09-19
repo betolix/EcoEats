@@ -2,7 +2,6 @@ package io.h3llo.ecoeats.presentation.dishes
 
 import android.content.Context
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +18,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -32,31 +30,27 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import io.h3llo.ecoeats.R
 import io.h3llo.ecoeats.data.networking.model.DishDto
 import io.h3llo.ecoeats.presentation.common.RatingBarcomponent
 import io.h3llo.ecoeats.presentation.common.TextBasic
-import io.h3llo.ecoeats.presentation.preview.PreviewWithoutBackground
 import io.h3llo.ecoeats.ui.theme.Secondary
-import javax.inject.Inject
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun DishesScreen(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
-    viewModel: DishesViewModel = hiltViewModel()
+    viewModel: DishesViewModel = hiltViewModel(),
+    onClick: (DishDto) -> Unit
 ) {
 
     val state = viewModel.state
@@ -110,7 +104,10 @@ fun DishesScreen(
                 ) { index ->
                     PagerDishComponent(
                         dishDto = dishesFiletr[index],
-                        context = context
+                        context = context,
+                        onClick = {
+                            onClick(it)
+                        }
                     )
                 }
                 Row(
@@ -153,7 +150,10 @@ fun DishesScreen(
                 items(it) {
                     DishItem(
                         dishDto = it,
-                        context = context
+                        context = context,
+                        onClick = {
+                            onClick(it)
+                        }
                     )
 
                 }
@@ -169,11 +169,14 @@ fun DishesScreen(
 fun PagerDishComponent(
     modifier: Modifier = Modifier,
     dishDto: DishDto,
-    context: Context
+    context: Context,
+    onClick:(DishDto)-> Unit
 ) {
     Box(modifier = Modifier
         .fillMaxWidth()
-        .clickable {}
+        .clickable {
+            onClick(dishDto)
+        }
     )
     {
         AsyncImage(
@@ -220,7 +223,8 @@ fun PagerDishComponent(
 fun DishItem(
     modifier: Modifier = Modifier,
     dishDto: DishDto,
-    context: Context
+    context: Context,
+    onClick:(DishDto)-> Unit
 ) {
 
     Card(
@@ -230,7 +234,9 @@ fun DishItem(
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { }
+            .clickable {
+                onClick(dishDto)
+            }
     ) {
         // Text(text = "Hola")
         Column(

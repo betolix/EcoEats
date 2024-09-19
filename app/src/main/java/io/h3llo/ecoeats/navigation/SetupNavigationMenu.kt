@@ -5,6 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.google.gson.Gson
+import io.h3llo.ecoeats.data.networking.model.DishDto
+import io.h3llo.ecoeats.presentation.detail.DetailScreen
 import io.h3llo.ecoeats.presentation.dishes.DishesScreen
 import io.h3llo.ecoeats.presentation.search.SearchScreen
 import io.h3llo.ecoeats.presentation.settings.SettingsScreen
@@ -22,7 +25,14 @@ fun SetupNavigationMenu(
         startDestination = ScreenMenu.Dishes.route
     ){
         composable (route = ScreenMenu.Dishes.route){
-            DishesScreen( paddingValues = paddingValues)
+            DishesScreen(
+                paddingValues = paddingValues,
+                onClick ={
+                    val dishJson = Gson().toJson(it)
+                    //navController.navigate("detail_screen/?dishJson=$dishJson")
+                    navController.navigate(ScreenMenu.Detail.createRoute(dishJson))
+                }
+            )
         }
         composable (route = ScreenMenu.Search.route){
             SearchScreen( paddingValues = paddingValues)
@@ -31,7 +41,10 @@ fun SetupNavigationMenu(
             SettingsScreen( paddingValues = paddingValues)
         }
         composable (route = ScreenMenu.Detail.route){
-            //DishesScreen()
+            val dishJson = it.arguments?.getString("dishJson")
+            val dishDto = Gson().fromJson(dishJson, DishDto::class.java)
+            requireNotNull(dishDto)
+            DetailScreen(dishDto = dishDto)
         }
 
 

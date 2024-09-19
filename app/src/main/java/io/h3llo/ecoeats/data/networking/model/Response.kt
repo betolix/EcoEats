@@ -1,6 +1,7 @@
 package io.h3llo.ecoeats.data.networking.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class LoginResponse(
     // This is a DTO
@@ -38,4 +39,4 @@ data class DishDto(
     @SerializedName("proteins") val proteins: Int,
     @SerializedName("rating") val rating: Double,
     @SerializedName("thumbnails") val thumbnails: String
-)
+) : Serializable
