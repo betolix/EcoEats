@@ -16,7 +16,8 @@ import io.h3llo.ecoeats.presentation.settings.SettingsScreen
 @Composable
 fun SetupNavigationMenu(
     navController: NavHostController,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    onChangeVisibleBottomBar: (Boolean)-> Unit
 ) {
 
     // INVOCAR AL GRAFO
@@ -25,6 +26,7 @@ fun SetupNavigationMenu(
         startDestination = ScreenMenu.Dishes.route
     ){
         composable (route = ScreenMenu.Dishes.route){
+            onChangeVisibleBottomBar(true)
             DishesScreen(
                 paddingValues = paddingValues,
                 onClick ={
@@ -35,12 +37,15 @@ fun SetupNavigationMenu(
             )
         }
         composable (route = ScreenMenu.Search.route){
+            onChangeVisibleBottomBar(true)
             SearchScreen( paddingValues = paddingValues)
         }
         composable (route = ScreenMenu.Settings.route){
+            onChangeVisibleBottomBar(true)
             SettingsScreen( paddingValues = paddingValues)
         }
         composable (route = ScreenMenu.Detail.route){
+            onChangeVisibleBottomBar(false)
             val dishJson = it.arguments?.getString("dishJson")
             val dishDto = Gson().fromJson(dishJson, DishDto::class.java)
             requireNotNull(dishDto)

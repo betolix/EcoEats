@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.traceEventEnd
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
@@ -67,6 +68,10 @@ fun HomeScreen(
 
     val navController = rememberNavController()
 
+    var bottomBarVisible by remember{
+        mutableStateOf(true)
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -76,46 +81,47 @@ fun HomeScreen(
             )
         },
         bottomBar = {
-            NavigationBar {
-                items.forEachIndexed { index, item ->
-                    NavigationBarItem(
-                        selected = selectedItemIndex == index,
-                        onClick ={
-                            selectedItemIndex = index
-                            navController.navigate(item.route){
-                                // popUpTo(navController.graph.findStartDestination().id){
-                                //     saveState = true
-                                // }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        icon = {
-                            BadgedBox(
-                                badge = {
-                                    if(item.badgeCount != null){
-                                        Badge{
-                                            Text(text = item.badgeCount.toString())
-                                        }
-                                    } else if(item.hasNews) {
-                                        Badge()
-
-                                    }
+            if(bottomBarVisible){
+                NavigationBar {
+                    items.forEachIndexed { index, item ->
+                        NavigationBarItem(
+                            selected = selectedItemIndex == index,
+                            onClick = {
+                                selectedItemIndex = index
+                                navController.navigate(item.route) {
+                                    // popUpTo(navController.graph.findStartDestination().id){
+                                    //     saveState = true
+                                    // }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                            ) {
-                                Icon(
-                                    imageVector =
-                                    if( index == selectedItemIndex )
-                                        item.selectedIcon
-                                    else
-                                        item.unselectedIcon,
-                                    contentDescription = item.title
-                                )
-                            }
-                        }
-                    )
-                }
+                            },
+                            icon = {
+                                BadgedBox(
+                                    badge = {
+                                        if (item.badgeCount != null) {
+                                            Badge {
+                                                Text(text = item.badgeCount.toString())
+                                            }
+                                        } else if (item.hasNews) {
+                                            Badge()
 
+                                        }
+                                    }
+                                ) {
+                                    Icon(
+                                        imageVector =
+                                        if (index == selectedItemIndex)
+                                            item.selectedIcon
+                                        else
+                                            item.unselectedIcon,
+                                        contentDescription = item.title
+                                    )
+                                }
+                            }
+                        )
+                    }
+                }
             }
         }
 
@@ -123,7 +129,10 @@ fun HomeScreen(
 
         SetupNavigationMenu(
             navController = navController,
-            paddingValues = paddingValues
+            paddingValues = paddingValues,
+            onChangeVisibleBottomBar = {
+                bottomBarVisible = it
+            }
         )
     }
 
