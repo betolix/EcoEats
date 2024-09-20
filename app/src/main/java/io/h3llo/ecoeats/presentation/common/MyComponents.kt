@@ -163,6 +163,7 @@ fun TopBarComponent(
     onIconClick: ()->Unit
 ) {
     TopAppBar(
+        modifier = modifier,
         title = {
             if (title != "") {
                 Text(text = title)
@@ -171,7 +172,9 @@ fun TopBarComponent(
         actions = {
             Icon(
                 imageVector = Icons.Filled.Notifications,
-                contentDescription = "Notifications"
+                contentDescription = "Notifications",
+                modifier = Modifier.padding(end = 12.dp),
+                tint = Primary
             )
         },
         navigationIcon = {

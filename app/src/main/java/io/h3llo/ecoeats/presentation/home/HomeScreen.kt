@@ -2,6 +2,8 @@ package io.h3llo.ecoeats.presentation.home
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
@@ -76,8 +78,13 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopBarComponent(
-                imageVector = Icons.Filled.Menu,
-                onIconClick = { }
+                imageVector = if(bottomBarVisible) Icons.Filled.Menu else Icons.AutoMirrored.Filled.ArrowBack,
+                onIconClick = {
+                    if(!bottomBarVisible){
+                        bottomBarVisible = true
+                        navController.popBackStack()
+                    }
+                }
             )
         },
         bottomBar = {
