@@ -69,20 +69,21 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //NAVIGATION COMPOSE
-    implementation ("androidx.navigation:navigation-compose:2.7.7")
+//    //NAVIGATION COMPOSE
+//    implementation ("androidx.navigation:navigation-compose:2.7.7")
+    implementation ( libs.navigation.compose )
 
     //PAGER
-    implementation ("com.google.accompanist:accompanist-pager:0.28.0")
+    implementation (libs.accompanist.pager)
 
     //ICONS
-    implementation ("androidx.compose.material:material-icons-extended:1.6.8")
+    implementation (libs.androidx.material.icons.extended)
 
     //Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
     // INTERCEPTOR
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
+    implementation(libs.logging.interceptor)
 
 
     // INTEGRACION DE VIEWMODEL EN COMPOSE
@@ -91,16 +92,16 @@ dependencies {
     //      implementation("androidx.activity:activity-compose:1.7.2")
 
     // HILT - D.I.
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-    implementation("com.google.dagger:hilt-android:2.50")
-    kapt("com.google.dagger:hilt-android-compiler:2.50")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
 
     // SECURITY - CRYPTO
-    implementation("androidx.security:security-crypto:1.0.0-alpha02")
+    implementation(libs.androidx.security.crypto)
 
     // COIL
-    implementation("io.coil-kt:coil-compose:2.0.0")
+    implementation(libs.coil.compose)
 
 
 
