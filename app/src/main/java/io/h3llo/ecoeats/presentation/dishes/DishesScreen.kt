@@ -40,6 +40,7 @@ import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import io.h3llo.ecoeats.data.networking.model.DishDto
+import io.h3llo.ecoeats.domain.model.Dish
 import io.h3llo.ecoeats.presentation.common.RatingBarcomponent
 import io.h3llo.ecoeats.presentation.common.TextBasic
 import io.h3llo.ecoeats.ui.theme.Secondary
@@ -50,7 +51,7 @@ fun DishesScreen(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
     viewModel: DishesViewModel = hiltViewModel(),
-    onClick: (DishDto) -> Unit
+    onClick: (Dish) -> Unit
 ) {
 
     val state = viewModel.state
@@ -95,15 +96,15 @@ fun DishesScreen(
             contentAlignment = Alignment.BottomCenter
         ) {
             viewModel.state.success?.let { dishes ->
-                val dishesFiletr = dishes.filter {
+                val dishesFilter = dishes.filter {
                     it.flagHeader
                 }
                 HorizontalPager(
-                    count = dishesFiletr.count(),
+                    count = dishesFilter.count(),
                     state = pagerState
                 ) { index ->
                     PagerDishComponent(
-                        dishDto = dishesFiletr[index],
+                        dish = dishesFilter[index],
                         context = context,
                         onClick = {
                             onClick(it)
@@ -113,7 +114,7 @@ fun DishesScreen(
                 Row(
                     modifier = Modifier.padding(8.dp)
                 ) {
-                    repeat(dishesFiletr.size) { iteration ->
+                    repeat(dishesFilter.size) { iteration ->
                         val color =
                             if (pagerState.currentPage == iteration) Color.White else Color.Gray
                         Box(
@@ -149,7 +150,7 @@ fun DishesScreen(
             viewModel.state.success?.let {
                 items(it) {
                     DishItem(
-                        dishDto = it,
+                        dish = it,
                         context = context,
                         onClick = {
                             onClick(it)
@@ -168,23 +169,23 @@ fun DishesScreen(
 @Composable
 fun PagerDishComponent(
     modifier: Modifier = Modifier,
-    dishDto: DishDto,
+    dish: Dish,
     context: Context,
-    onClick:(DishDto)-> Unit
+    onClick:(Dish)-> Unit
 ) {
-    Box(modifier = Modifier
+    Box(modifier = modifier
         .fillMaxWidth()
         .clickable {
-            onClick(dishDto)
+            onClick(dish)
         }
     )
     {
         AsyncImage(
             model = ImageRequest.Builder(context)
-                .data(dishDto.image)
+                .data(dish.image)
                 .crossfade(500)
                 .build(),
-            contentDescription = dishDto.name,
+            contentDescription = dish.name,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
@@ -198,7 +199,7 @@ fun PagerDishComponent(
                 .padding(top = 16.dp)
         ) {
             TextBasic(
-                text = dishDto.name, style = TextStyle(
+                text = dish.name, style = TextStyle(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -206,7 +207,7 @@ fun PagerDishComponent(
             )
             Spacer(modifier = Modifier.height(8.dp))
             TextBasic(
-                text = dishDto.description, style = TextStyle(
+                text = dish.description, style = TextStyle(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -222,9 +223,9 @@ fun PagerDishComponent(
 @Composable
 fun DishItem(
     modifier: Modifier = Modifier,
-    dishDto: DishDto,
+    dish: Dish,
     context: Context,
-    onClick:(DishDto)-> Unit
+    onClick:(Dish)-> Unit
 ) {
 
     Card(
@@ -235,7 +236,7 @@ fun DishItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                onClick(dishDto)
+                onClick(dish)
             }
     ) {
         // Text(text = "Hola")
@@ -252,7 +253,7 @@ fun DishItem(
             // )
             AsyncImage(
                 model = ImageRequest.Builder(context)
-                    .data(dishDto.image)
+                    .data(dish.image)
                     .crossfade(500)
                     .build(),
                 contentDescription = "Dish",
@@ -264,7 +265,7 @@ fun DishItem(
             )
             Spacer(modifier = Modifier.height(12.dp))
             TextBasic(
-                text = dishDto.name,
+                text = dish.name,
                 style = TextStyle(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
@@ -280,7 +281,7 @@ fun DishItem(
             )
             Spacer(modifier = Modifier.height(2.dp))
             TextBasic(
-                text = "${dishDto.carbohydrates.toString()}g.",
+                text = "${dish.carbohydrates.toString()}g.",
                 style = TextStyle(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -288,7 +289,7 @@ fun DishItem(
                 )
             )
 
-            RatingBarcomponent(currentRating = dishDto.rating.toInt())
+            RatingBarcomponent(currentRating = dish.rating.toInt())
 
         }
     }

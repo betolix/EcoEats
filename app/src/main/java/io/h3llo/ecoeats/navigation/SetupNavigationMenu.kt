@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.google.gson.Gson
-import io.h3llo.ecoeats.data.networking.model.DishDto
+import io.h3llo.ecoeats.domain.model.Dish
 import io.h3llo.ecoeats.presentation.detail.DetailScreen
 import io.h3llo.ecoeats.presentation.dishes.DishesScreen
 import io.h3llo.ecoeats.presentation.search.SearchScreen
@@ -47,9 +47,9 @@ fun SetupNavigationMenu(
         composable (route = ScreenMenu.Detail.route){
             onChangeVisibleBottomBar(false)
             val dishJson = it.arguments?.getString("dishJson")
-            val dishDto = Gson().fromJson(dishJson, DishDto::class.java)
-            requireNotNull(dishDto)
-            DetailScreen(dishDto = dishDto)
+            val dish = Gson().fromJson(dishJson, Dish::class.java)
+            requireNotNull(dish)
+            DetailScreen(dish = dish)
         }
 
 

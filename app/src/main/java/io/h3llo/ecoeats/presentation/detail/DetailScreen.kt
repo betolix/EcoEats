@@ -6,18 +6,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import io.h3llo.ecoeats.data.networking.model.DishDto
+import io.h3llo.ecoeats.domain.model.Dish
 
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
-    dishDto: DishDto
+    dish: Dish
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = dishDto.name)
+        Text(text = dish.name)
 
     }
 }

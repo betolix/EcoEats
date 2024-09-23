@@ -1,5 +1,7 @@
 package io.h3llo.ecoeats.domain.model
 
+import java.io.Serializable
+
 
 data class Dish(
     val carbohydrates: Int,
@@ -12,5 +14,5 @@ data class Dish(
     val price: Int,
     val proteins: Int,
     val rating: Double,
-    val thumbnails: String
+    val thumbnails: String?,
 )
