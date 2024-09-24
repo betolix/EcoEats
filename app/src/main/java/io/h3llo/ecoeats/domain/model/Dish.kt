@@ -14,5 +14,5 @@ data class Dish(
     val price: Int,
     val proteins: Int,
     val rating: Double,
-    val thumbails: String?,
+    val thumbnails: String?,
 )
