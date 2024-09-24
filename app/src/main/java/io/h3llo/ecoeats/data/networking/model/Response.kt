@@ -36,5 +36,5 @@ data class DishDto(
     @SerializedName("price") val price: Int,
     @SerializedName("proteins") val proteins: Int,
     @SerializedName("rating") val rating: Double,
-    @SerializedName("thumbnails") val thumbnails: String
+    @SerializedName("thumbails") val thumbails: String
 ) : Serializable
