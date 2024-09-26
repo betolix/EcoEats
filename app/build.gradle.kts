@@ -29,6 +29,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "URL_BASE", "\"http://betolix-001-site1.etempurl.com/\"")
+        }
+        debug {
+            buildConfigField("String", "URL_BASE", "\"http://betolix-001-site1.etempurl.com/\"")
         }
     }
     compileOptions {
@@ -40,6 +44,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"

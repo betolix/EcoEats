@@ -2,7 +2,7 @@ package io.h3llo.ecoeats.data.repository
 
 import android.content.SharedPreferences
 import io.h3llo.ecoeats.core.Result
-import io.h3llo.ecoeats.data.networking.Api
+import io.h3llo.ecoeats.data.networking.endpoints.MethodsApi
 import io.h3llo.ecoeats.data.networking.model.LoginRequest
 import io.h3llo.ecoeats.data.networking.model.toUser
 import io.h3llo.ecoeats.data.util.Util.save
@@ -11,12 +11,13 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class AuthRepository @Inject constructor(
-    @Named("provideSharedPreferencesEncrypted") val sharedPreferences: SharedPreferences
+    @Named("provideSharedPreferencesEncrypted") val sharedPreferences: SharedPreferences,
+    val api : MethodsApi
 ) {
 
     suspend fun signIn(email: String, password: String): Result<User> {
         try {
-            val response = Api.build().signIn(
+            val response = api.signIn(
                 LoginRequest(
                     email = email, //"betolix@gmail.com",
                     password = password, //"123"

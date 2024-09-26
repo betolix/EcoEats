@@ -37,4 +37,6 @@ class AppModule {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
+
+
 }

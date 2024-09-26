@@ -14,6 +14,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import java.util.concurrent.TimeUnit
 
+/*
 object Api {
 
     // URL -> http://betolix-001-site1.etempurl.com/api/securities/login
@@ -60,9 +61,6 @@ object Api {
     fun build(): MethodsApi{
         return retrofit.create(MethodsApi::class.java)
     }
-
-
-
-
-
 }
+
+*/
