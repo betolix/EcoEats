@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.h3llo.ecoeats.core.Result
-import io.h3llo.ecoeats.data.repository.AuthRepository
+import io.h3llo.ecoeats.domain.use_cases.SignInUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -16,7 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    val repository: AuthRepository
+
+    // val repository: AuthRepository
+    val signInUseCase: SignInUseCase
+
 ) : ViewModel() {
 
     //COMPONENT STATE
@@ -54,7 +57,8 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO){
-                    repository.signIn(formState.email, formState.password)
+                    // repository.signIn(formState.email, formState.password)
+                    signInUseCase(formState.email, formState.password)
                 }
 
                 when(response){
