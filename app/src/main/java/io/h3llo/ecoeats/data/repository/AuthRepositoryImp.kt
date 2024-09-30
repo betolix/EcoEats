@@ -2,6 +2,7 @@ package io.h3llo.ecoeats.data.repository
 
 import android.content.SharedPreferences
 import io.h3llo.ecoeats.core.Result
+import io.h3llo.ecoeats.data.mapper.AuthDtoMapper
 import io.h3llo.ecoeats.data.networking.endpoints.MethodsApi
 import io.h3llo.ecoeats.data.networking.model.LoginRequest
 import io.h3llo.ecoeats.data.networking.model.toUser
@@ -13,7 +14,8 @@ import javax.inject.Named
 
 class AuthRepositoryImp @Inject constructor(
     @Named("provideSharedPreferencesEncrypted") val sharedPreferences: SharedPreferences,
-    val api : MethodsApi
+    val api : MethodsApi,
+    val authDtoMapper: AuthDtoMapper
 ) : AuthRepository {
 
     /*
@@ -79,7 +81,9 @@ class AuthRepositoryImp @Inject constructor(
                     // USING EXTENSION FUNCTIONS
                     sharedPreferences.save(data?.data?.token ?: "")
 
-                    return Result.Success(data = data?.data?.toUser())
+                    //return Result.Success(data = data?.data?.toUser())
+                    return Result.Success(data = authDtoMapper.mapToDomainModel( data.data ))
+
                 }else{
                     return Result.Error(message = data?.message ?: "Error desconocido")
                 }

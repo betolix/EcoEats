@@ -9,6 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.h3llo.ecoeats.data.mapper.AuthDtoMapper
 import io.h3llo.ecoeats.data.networking.endpoints.MethodsApi
 import io.h3llo.ecoeats.data.repository.AuthRepositoryImp
 import io.h3llo.ecoeats.domain.repository.AuthRepository
@@ -41,14 +42,14 @@ class AppModule {
         )
     }
 
+
     @Provides
     @Singleton
-    fun provideAuthRepository(
-        api:MethodsApi,
-        @Named("provideSharedPreferencesEncrypted") sharedPreferences: SharedPreferences
-    ): AuthRepository{
-        return AuthRepositoryImp(sharedPreferences, api)
+    fun providesAuthDtoMapper() : AuthDtoMapper{
+        return AuthDtoMapper()
     }
+
+
 
 
 }

@@ -5,7 +5,6 @@ import java.io.Serializable
 
 data class LoginResponse(
     // This is a DTO
-
     @SerializedName("success") val success: Boolean,
     @SerializedName("message") val message: String,
     @SerializedName("data") val data: UserDto,
