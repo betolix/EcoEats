@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.h3llo.ecoeats.core.Result
 import io.h3llo.ecoeats.domain.use_cases.SignInUseCase
+import io.h3llo.ecoeats.domain.use_cases.ValidateFieldUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
 
     // val repository: AuthRepository
-    val signInUseCase: SignInUseCase
+    val signInUseCase: SignInUseCase,
+    val validateFieldUseCase: ValidateFieldUseCase
 
 ) : ViewModel() {
 
@@ -56,6 +58,16 @@ class SignInViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
+
+                val result = validateFieldUseCase(formState.email)
+
+                if(!result.successful){
+                    // email field is empty, send message to the view
+                    formState = formState.copy(emailError = result.errorMessage )
+                    state = state.copy(isLoading = false)
+                    return@launch
+                }
+
                 val response = withContext(Dispatchers.IO){
                     // repository.signIn(formState.email, formState.password)
                     signInUseCase(formState.email, formState.password)

@@ -10,10 +10,6 @@ class SignInUseCase @Inject constructor( val repository: AuthRepository) {
 
     suspend operator fun invoke (email:String, password: String) : Result<User>{
 
-        // if (email.isEmpty() ){
-        //     return
-        // }
-
         return repository.signIn(email, password)
     }
 }

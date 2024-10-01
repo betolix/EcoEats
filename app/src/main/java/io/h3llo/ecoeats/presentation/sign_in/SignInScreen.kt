@@ -248,8 +248,15 @@ fun SignInContent(
                 )
             }
         },
-        isError = false,
+        isError = viewModel.formState.emailError != null,
     )
+    if (viewModel.formState.emailError != null) {
+        TextBasic(
+            text = viewModel.formState.emailError ?: "",
+            style = TextStyle(fontSize = 15.sp),
+            color = Color.Red
+        )
+    }
 
     OutlinedTextFieldBasic(
         text = viewModel.formState.password,
