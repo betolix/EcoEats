@@ -59,6 +59,7 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch {
             try {
 
+                /*
                 val result = validateFieldUseCase(formState.email)
 
                 if(!result.successful){
@@ -67,6 +68,7 @@ class SignInViewModel @Inject constructor(
                     state = state.copy(isLoading = false)
                     return@launch
                 }
+                 */
 
                 val response = withContext(Dispatchers.IO){
                     // repository.signIn(formState.email, formState.password)
