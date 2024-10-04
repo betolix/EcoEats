@@ -82,6 +82,12 @@ class SignInViewModel @Inject constructor(
                     is Result.Success -> {
                         state = state.copy(isLoading = false, success =  response.data, error = null)
                     }
+
+                    is Result.Validation -> {
+                        formState = formState.copy(emailError = response.message)
+                        state = state.copy(isLoading = false )
+
+                    }
                 }
 
             }catch (ex:Exception){

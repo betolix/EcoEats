@@ -39,6 +39,8 @@ class DishesViewModel @Inject constructor(val repository : DishesRepository) : V
                     state = state.copy(isLoading = false, success = response.data, error = null)
 
                 }
+
+                is Result.Validation -> TODO()
             }
 
         }
