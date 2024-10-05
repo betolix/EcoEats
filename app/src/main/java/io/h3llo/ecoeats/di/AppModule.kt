@@ -10,11 +10,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.h3llo.ecoeats.data.mapper.AuthDtoMapper
-import io.h3llo.ecoeats.data.networking.endpoints.MethodsApi
-import io.h3llo.ecoeats.data.repository.AuthRepositoryImp
 import io.h3llo.ecoeats.domain.repository.AuthRepository
-import io.h3llo.ecoeats.domain.use_cases.SignInUseCase
-import io.h3llo.ecoeats.domain.use_cases.ValidateFieldUseCase
+import io.h3llo.ecoeats.domain.use_cases.sign_in_use_case.SignInUseCase
+import io.h3llo.ecoeats.domain.use_cases.validate_field_use_case.ValidateFieldUseCase
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -54,8 +52,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideSignInUseCase(authRepository: AuthRepository): SignInUseCase {
-        return SignInUseCase(authRepository)
+    fun provideSignInUseCase(authRepository: AuthRepository, validateFieldUseCase: ValidateFieldUseCase): SignInUseCase {
+        return SignInUseCase(authRepository, validateFieldUseCase)
     }
 
     @Provides
@@ -63,6 +61,8 @@ class AppModule {
     fun provideValidateFieldUseCase(): ValidateFieldUseCase {
         return ValidateFieldUseCase()
     }
+
+
 
 
 }

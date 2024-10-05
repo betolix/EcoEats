@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.h3llo.ecoeats.core.Result
-import io.h3llo.ecoeats.domain.use_cases.SignInUseCase
-import io.h3llo.ecoeats.domain.use_cases.ValidateFieldUseCase
+import io.h3llo.ecoeats.domain.use_cases.sign_in_use_case.SignInUseCase
+import io.h3llo.ecoeats.domain.use_cases.validate_field_use_case.ValidateFieldUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -44,6 +44,10 @@ class SignInViewModel @Inject constructor(
             }
             is LoginFormEvent.VisualTransformationChange -> {
                 formState = formState.copy(visualTransformation = event.visualTransformation)
+            }
+
+            LoginFormEvent.onFocusChange -> {
+                formState = formState.copy(emailError = null )
             }
         }
     }

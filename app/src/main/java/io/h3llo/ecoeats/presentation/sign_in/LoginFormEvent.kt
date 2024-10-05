@@ -6,6 +6,7 @@ sealed class LoginFormEvent {
     data class PasswordChange(val password: String) : LoginFormEvent()
     data class VisualTransformationChange(val visualTransformation: Boolean) : LoginFormEvent()
     object Submit : LoginFormEvent()
+    object onFocusChange : LoginFormEvent()
 
 
 }

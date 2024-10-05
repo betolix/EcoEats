@@ -1,4 +1,4 @@
-package io.h3llo.ecoeats.ui
+package io.h3llo.ecoeats.di
 
 import android.content.SharedPreferences
 import dagger.Module
@@ -12,6 +12,7 @@ import io.h3llo.ecoeats.domain.repository.AuthRepository
 import javax.inject.Named
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 class RepositoryModule {
@@ -19,11 +20,17 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideAuthRepository(
-        api: MethodsApi,
         @Named("provideSharedPreferencesEncrypted") sharedPreferences: SharedPreferences,
+        api: MethodsApi,
         authDtoMapper: AuthDtoMapper
-    ): AuthRepository {
-        return AuthRepositoryImp(sharedPreferences, api, authDtoMapper )
+        ) : AuthRepository {
+        return AuthRepositoryImp(sharedPreferences, api, authDtoMapper)
     }
 
+
+
+
+
+
 }
+

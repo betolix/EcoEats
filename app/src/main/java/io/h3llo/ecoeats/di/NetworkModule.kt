@@ -8,7 +8,6 @@ import dagger.hilt.components.SingletonComponent
 import io.h3llo.ecoeats.BuildConfig
 import io.h3llo.ecoeats.data.networking.endpoints.MethodsApi
 import io.h3llo.ecoeats.data.networking.interceptor.AuthInterceptor
-import io.h3llo.ecoeats.data.util.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
