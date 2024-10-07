@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.h3llo.ecoeats.ui.theme.Primary
+import io.h3llo.ecoeats.ui.theme.Secondary
 
 @Composable
 fun ImageBasic(
@@ -119,12 +120,16 @@ fun OutlinedTextFieldBasic(
             )
         },
         shape = RoundedCornerShape(roundedDp),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Primary,
-            unfocusedBorderColor = Color.LightGray,
+        colors = TextFieldDefaults.colors(
+            focusedTextColor = Primary,
+            focusedContainerColor = Secondary,
             focusedLabelColor = Primary,
-            cursorColor = Primary
+            focusedIndicatorColor = Primary,
+            focusedTrailingIconColor = Color.Red,
+            focusedLeadingIconColor = Color.Red
+
         ),
+
         trailingIcon = trailingIcon,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,

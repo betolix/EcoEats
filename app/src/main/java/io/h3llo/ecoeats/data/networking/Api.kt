@@ -15,7 +15,7 @@ import retrofit2.http.POST
 import java.util.concurrent.TimeUnit
 
 /*
-object Api {
+object  Api {
 
     // URL -> http://betolix-001-site1.etempurl.com/api/securities/login
     // BASE_URL -> http://betolix-001-site1.etempurl.com
