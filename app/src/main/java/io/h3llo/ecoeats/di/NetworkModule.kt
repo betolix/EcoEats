@@ -35,9 +35,9 @@ class NetworkModule {
             setLevel(HttpLoggingInterceptor.Level.BODY)
         }
         val clientBuilder = OkHttpClient.Builder()
-            .connectTimeout(3, TimeUnit.SECONDS)
-            .writeTimeout(3, TimeUnit.SECONDS)
-            .readTimeout(3, TimeUnit.SECONDS)
+            .connectTimeout(6, TimeUnit.SECONDS)
+            .writeTimeout(6, TimeUnit.SECONDS)
+            .readTimeout(6, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
             .addInterceptor(authInterceptor)
 
