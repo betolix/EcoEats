@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         // preferences.putString("KEY", "123")
         // preferences.apply()
 
-
+        /*
         val firestore = FirebaseFirestore.getInstance()
         firestore
             .collection("recipes")
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
             }.addOnFailureListener {
                 println(it.message)
             }
-
+         */
 
         setContent {
             SetupNavigation()
@@ -44,9 +44,5 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-data class Recipe(
-    val title: String = "",
-    val description : String = "",
-    val url : String = ""
-)
+
 

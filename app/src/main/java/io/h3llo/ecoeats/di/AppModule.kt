@@ -4,13 +4,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.h3llo.ecoeats.data.mapper.AuthDtoMapper
+import io.h3llo.ecoeats.data.repository.RecipeRepositoryImp
 import io.h3llo.ecoeats.domain.repository.AuthRepository
+import io.h3llo.ecoeats.domain.repository.RecipeRepository
 import io.h3llo.ecoeats.domain.use_cases.sign_in_use_case.SignInUseCase
 import io.h3llo.ecoeats.domain.use_cases.validate_field_use_case.ValidateFieldUseCase
 import javax.inject.Named
@@ -63,6 +66,17 @@ class AppModule {
     }
 
 
+    @Provides
+    @Singleton
+    fun provideFirebaseFirestore() : FirebaseFirestore{
+        return FirebaseFirestore.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRecipeRepository(firestore : FirebaseFirestore): RecipeRepository {
+        return RecipeRepositoryImp(firestore)
+    }
 
 
 }
