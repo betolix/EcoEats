@@ -70,7 +70,8 @@ dependencies {
 
     // FIREBASE - FIRESTORE
     implementation(libs.firebase.firestore)
-    
+    implementation(libs.support.annotations)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -113,6 +114,9 @@ dependencies {
     // COIL
     implementation(libs.coil.compose)
 
+
+    // collectAsStateWithLifecycle
+    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.0")
 
 
 }

@@ -46,6 +46,7 @@ import io.h3llo.ecoeats.presentation.common.TextBasic
 
 //  POR QUE ESTA LIB NO SE IMPORTA AUTOMATICAMENTE ???
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,7 +59,7 @@ fun RecipeScreen(
 
     val context = LocalContext.current
 
-    val formState by viewModel.formState.collectAsState()
+    val formState by viewModel.formState.collectAsStateWithLifecycle()
 
 
     LaunchedEffect(key1 = Unit) {
