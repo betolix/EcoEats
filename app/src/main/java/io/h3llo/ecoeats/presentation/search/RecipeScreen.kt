@@ -26,12 +26,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-
-//  POR QUE ESTA LIB NO SE IMPORTA AUTOMATICAMENTE ???
-import androidx.compose.runtime.getValue
-
-
-
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -49,6 +43,10 @@ import coil.request.ImageRequest
 import io.h3llo.ecoeats.domain.model.Recipe
 import io.h3llo.ecoeats.presentation.common.OutlinedTextFieldBasic
 import io.h3llo.ecoeats.presentation.common.TextBasic
+
+//  POR QUE ESTA LIB NO SE IMPORTA AUTOMATICAMENTE ???
+import androidx.compose.runtime.getValue
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -99,8 +97,12 @@ fun RecipeScreen(
             //text = viewModel.formState.searchValue,
             text = formState.searchValue,
             onValueChange = {
-                viewModel.onEvent(RecipeFormEvent.TitleChange(it))
-                viewModel.onEvent(RecipeFormEvent.GetRecipesByTitle)
+                if(it.all { it.isLetter() || it.isWhitespace() }){
+
+                    viewModel.onEvent(RecipeFormEvent.TitleChange(it))
+                    viewModel.onEvent(RecipeFormEvent.GetRecipesByTitle)
+                }
+
             },
             textLabel = "Búsqueda",
             keyboardOptions = KeyboardOptions(
