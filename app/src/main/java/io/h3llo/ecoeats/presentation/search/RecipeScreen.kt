@@ -11,14 +11,27 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+
+//  POR QUE ESTA LIB NO SE IMPORTA AUTOMATICAMENTE ???
+import androidx.compose.runtime.getValue
+
+
+
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,14 +39,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import io.h3llo.ecoeats.domain.model.Recipe
+import io.h3llo.ecoeats.presentation.common.OutlinedTextFieldBasic
 import io.h3llo.ecoeats.presentation.common.TextBasic
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeScreen(
     modifier: Modifier = Modifier,
@@ -42,6 +59,9 @@ fun RecipeScreen(
 ) {
 
     val context = LocalContext.current
+
+    val formState by viewModel.formState.collectAsState()
+
 
     LaunchedEffect(key1 = Unit) {
         viewModel.onEvent(RecipeFormEvent.GetRecipes)
@@ -66,11 +86,56 @@ fun RecipeScreen(
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-//        TextBasic(
-//            text = "Recipe", style = TextStyle(
-//                fontSize = 12.sp
-//            )
-//        )
+        TextBasic(
+            text = "Recetas",
+            style = TextStyle(
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold
+            ),
+            modifier = Modifier.padding(start = 8.dp)
+        )
+
+        OutlinedTextFieldBasic(
+            //text = viewModel.formState.searchValue,
+            text = formState.searchValue,
+            onValueChange = {
+                viewModel.onEvent(RecipeFormEvent.TitleChange(it))
+                viewModel.onEvent(RecipeFormEvent.GetRecipesByTitle)
+            },
+            textLabel = "Búsqueda",
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+
+                }
+            ),
+            isError = false,
+            trailingIcon = {
+                //if(viewModel.formState.searchValue.isEmpty()){
+                if(formState.searchValue.isEmpty()){
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = null
+                    )
+                }else{
+                    IconButton(onClick = {
+                        viewModel.onEvent(RecipeFormEvent.TitleChange(""))
+                        viewModel.onEvent(RecipeFormEvent.GetRecipesByTitle)
+                    }){
+                        Icon(
+                            imageVector = Icons.Filled.Clear,
+                            contentDescription = null
+                        )
+                    }
+
+                }
+            },
+            modifier = Modifier.padding(horizontal = 8.dp).padding(bottom = 8.dp)
+        )
+
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(8.dp),

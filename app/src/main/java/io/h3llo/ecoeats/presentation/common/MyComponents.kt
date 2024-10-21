@@ -109,7 +109,7 @@ fun OutlinedTextFieldBasic(
 ) {
 
     OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         value = text,
         onValueChange = {
             onValueChange(it)
