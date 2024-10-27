@@ -1,7 +1,5 @@
 package io.h3llo.ecoeats.presentation.search
 
-import android.view.SearchEvent
-
 sealed class RecipeFormEvent {
 
     object GetRecipes : RecipeFormEvent()

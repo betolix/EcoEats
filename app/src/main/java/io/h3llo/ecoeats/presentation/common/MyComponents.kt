@@ -2,14 +2,20 @@ package io.h3llo.ecoeats.presentation.common
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarOutline
@@ -23,16 +29,26 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import io.h3llo.ecoeats.R
 import io.h3llo.ecoeats.ui.theme.Primary
 import io.h3llo.ecoeats.ui.theme.Secondary
+
 
 @Composable
 fun ImageBasic(
@@ -165,7 +181,7 @@ fun TopBarComponent(
     modifier: Modifier = Modifier,
     title: String = "",
     imageVector: ImageVector,
-    onIconClick: ()->Unit
+    onIconClick: () -> Unit
 ) {
     TopAppBar(
         modifier = modifier,
@@ -183,7 +199,7 @@ fun TopBarComponent(
             )
         },
         navigationIcon = {
-            IconButton(onClick = { onIconClick() } ){
+            IconButton(onClick = { onIconClick() }) {
                 Icon(
                     imageVector = imageVector,
                     contentDescription = "navigationIcon"
@@ -194,9 +210,66 @@ fun TopBarComponent(
     )
 }
 
+@Composable
+fun AlertCustom(
+    modifier: Modifier = Modifier,
+    title: AnnotatedString,
+    dismiss: () -> Unit
+) {
+    Dialog(onDismissRequest = { dismiss() },
+        properties = DialogProperties(
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true
+        )
 
+        ) {
 
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .border(
+                    width = 2.dp,
+                    color = Color(0xFF7ED476),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .background(Color(0xFFEBF6ED)),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            IconButton(modifier = Modifier
+                .align(Alignment.End),
+                onClick = { dismiss() }) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = "Close"
+                )
+            }
+            ImageBasic(image = R.drawable.ecoeats_logo, description = "Eco Eats Logo")
+            Text(
+                text = title.text,style = TextStyle(
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 22.sp,
+                )
 
+            )
+            SpacerComponent(modifier = Modifier.height(8.dp))
+            ButtonBasic(text = "Aceptar"){
+                dismiss()
+            }
+            SpacerComponent(modifier = Modifier.height(8.dp))
+        }
+    }
+}
+//
+//@Preview(showBackground = true)
+//@Composable
+//private fun AlertCustomPreview() {
+//    AlertCustom(title = "Mensaje") {
+//
+//    }
+//}
 
 
 

@@ -49,6 +49,10 @@ class SignInViewModel @Inject constructor(
             LoginFormEvent.onFocusChange -> {
                 formState = formState.copy(emailError = null )
             }
+
+            is LoginFormEvent.showDialog -> {
+                formState = formState.copy( showDialog = event.isVisible )
+            }
         }
     }
 

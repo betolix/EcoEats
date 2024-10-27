@@ -39,7 +39,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import io.h3llo.ecoeats.data.networking.model.DishDto
 import io.h3llo.ecoeats.domain.model.Dish
 import io.h3llo.ecoeats.presentation.common.RatingBarcomponent
 import io.h3llo.ecoeats.presentation.common.TextBasic

@@ -7,6 +7,7 @@ sealed class LoginFormEvent {
     data class VisualTransformationChange(val visualTransformation: Boolean) : LoginFormEvent()
     object Submit : LoginFormEvent()
     object onFocusChange : LoginFormEvent()
+    data class showDialog( val isVisible : Boolean ) : LoginFormEvent()
 
 
 }

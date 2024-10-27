@@ -5,4 +5,5 @@ data class LoginFormState(
     val emailError:String?=null,
     val password:String="123",
     val visualTransformation: Boolean = true,
+    val showDialog: Boolean = false
 )
