@@ -8,4 +8,5 @@ sealed class ScreenMenu (val route:String){
     object Detail : ScreenMenu(route = "detail_screen/?dishJson={dishJson}"){
         fun createRoute(dishJson:String) = "detail_screen/?dishJson=$dishJson"
     }
+    //object RecipeRegistrationScreen : ScreenMenu(route = "recipes_register")
 }

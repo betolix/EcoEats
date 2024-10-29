@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import io.h3llo.ecoeats.domain.model.Dish
 import io.h3llo.ecoeats.presentation.detail.DetailScreen
 import io.h3llo.ecoeats.presentation.dishes.DishesScreen
+import io.h3llo.ecoeats.presentation.recipes.RecipeRegistrationScreen
 import io.h3llo.ecoeats.presentation.search.RecipeScreen
 import io.h3llo.ecoeats.presentation.settings.SettingsScreen
 
@@ -38,11 +39,12 @@ fun SetupNavigationMenu(
         }
         composable (route = ScreenMenu.Search.route){
             onChangeVisibleBottomBar(true)
-            RecipeScreen( paddingValues = paddingValues)
+            RecipeScreen( paddingValues = paddingValues )
         }
         composable (route = ScreenMenu.Settings.route){
             onChangeVisibleBottomBar(true)
-            SettingsScreen( paddingValues = paddingValues)
+            //SettingsScreen( paddingValues = paddingValues )
+            RecipeRegistrationScreen( paddingValues = paddingValues)
         }
         composable (route = ScreenMenu.Detail.route){
             onChangeVisibleBottomBar(false)
@@ -51,6 +53,9 @@ fun SetupNavigationMenu(
             requireNotNull(dish)
             DetailScreen(dish = dish)
         }
+//        composable(route = ScreenMenu.RecipeRegistrationScreen.route){
+//            RecipeRegistrationScreen( paddingValues = paddingValues)
+//        }
 
 
     }
