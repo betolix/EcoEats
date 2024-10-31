@@ -1,9 +1,12 @@
 package io.h3llo.ecoeats.presentation.recipes
 
+import android.net.Uri
 import io.h3llo.ecoeats.core.Result
 
 data class RecipeRegistrationFormState(
-    val success: Unit?=null,
-    val error : String?=null,
-    val isLoading:Boolean=false
+    val title:String="",
+    val titleError:String?=null,
+    val description:String="",
+    val descriptionError:String?=null,
+    val uri: Uri?=null
 )

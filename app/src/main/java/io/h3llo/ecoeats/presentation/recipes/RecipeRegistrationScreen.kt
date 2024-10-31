@@ -16,12 +16,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.h3llo.ecoeats.presentation.common.ButtonBasic
 import io.h3llo.ecoeats.presentation.common.SpacerComponent
 import io.h3llo.ecoeats.presentation.common.TextBasic
@@ -31,7 +34,12 @@ import io.h3llo.ecoeats.presentation.preview.PreviewDefault
 fun RecipeRegistrationScreen(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
+    viewModel: RecipeRegistrationViewModel = hiltViewModel()
 ) {
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    val formState by viewModel.formState.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier
@@ -45,14 +53,19 @@ fun RecipeRegistrationScreen(
             fontWeight = FontWeight.Bold
         ))
         SpacerComponent(modifier = Modifier.height(64.dp))
-        OutlinedTextField(value = "", onValueChange = {},
+        OutlinedTextField(value = formState.title,
+            onValueChange = {title ->
+                viewModel.onEvent(RecipeRegistrationFormEvent.TitleChange(title))
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp))
         SpacerComponent(modifier = Modifier.height(12.dp))
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = formState.description,
+            onValueChange = {description ->
+                viewModel.onEvent(RecipeRegistrationFormEvent.DescriptionChange(description))
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 32.dp)
