@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +15,7 @@ import io.h3llo.ecoeats.data.mapper.AuthDtoMapper
 import io.h3llo.ecoeats.data.repository.RecipeRepositoryImp
 import io.h3llo.ecoeats.domain.repository.AuthRepository
 import io.h3llo.ecoeats.domain.repository.RecipeRepository
+import io.h3llo.ecoeats.domain.use_cases.save_recipe_use_case.SaveRecipeUseCase
 import io.h3llo.ecoeats.domain.use_cases.sign_in_use_case.SignInUseCase
 import io.h3llo.ecoeats.domain.use_cases.validate_field_use_case.ValidateFieldUseCase
 import javax.inject.Named
@@ -74,9 +76,23 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRecipeRepository(firestore : FirebaseFirestore): RecipeRepository {
-        return RecipeRepositoryImp(firestore)
+    fun provideRecipeRepository(firestore : FirebaseFirestore, firebaseStorage: FirebaseStorage): RecipeRepository {
+        return RecipeRepositoryImp(firestore, firebaseStorage)
     }
+
+
+    @Provides
+    @Singleton
+    fun provideFirebaseStorage(): FirebaseStorage {
+        return FirebaseStorage.getInstance()
+    }
+@Provides
+    @Singleton
+    fun provideSaveRecipeUseCase(recipeRepository: RecipeRepository): SaveRecipeUseCase {
+        return SaveRecipeUseCase(recipeRepository)
+    }
+
+
 
 
 }

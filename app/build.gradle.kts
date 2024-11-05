@@ -71,6 +71,7 @@ dependencies {
     // FIREBASE - FIRESTORE
     implementation(libs.firebase.firestore)
     implementation(libs.support.annotations)
+    implementation(libs.firebase.storage)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
