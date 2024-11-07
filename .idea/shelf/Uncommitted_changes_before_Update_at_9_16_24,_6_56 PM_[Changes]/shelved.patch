@@ -1,0 +1,19 @@
+Index: app/src/main/java/io/h3llo/ecoeats/presentation/sign_in/LoginState.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/io/h3llo/ecoeats/presentation/sign_in/LoginState.kt b/app/src/main/java/io/h3llo/ecoeats/presentation/sign_in/LoginScreenState.kt
+rename from app/src/main/java/io/h3llo/ecoeats/presentation/sign_in/LoginState.kt
+rename to app/src/main/java/io/h3llo/ecoeats/presentation/sign_in/LoginScreenState.kt
+--- a/app/src/main/java/io/h3llo/ecoeats/presentation/sign_in/LoginState.kt	
++++ b/app/src/main/java/io/h3llo/ecoeats/presentation/sign_in/LoginScreenState.kt	
+@@ -2,7 +2,7 @@
+ 
+ import io.h3llo.ecoeats.data.networking.model.UserDto
+ 
+-data class LoginState(
++data class LoginScreenState(
+     val isLoading: Boolean = false,
+     val error: String? = null,
+     val success: UserDto? = null
