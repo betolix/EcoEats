@@ -119,5 +119,8 @@ dependencies {
     // collectAsStateWithLifecycle
     implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.8.6")
 
+    // LOTTIE
+    implementation("com.airbnb.android:lottie-compose:6.0.0")
+
 
 }

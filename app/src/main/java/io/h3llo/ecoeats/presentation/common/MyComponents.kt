@@ -4,13 +4,17 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -29,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,6 +50,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import io.h3llo.ecoeats.R
 import io.h3llo.ecoeats.ui.theme.Primary
 import io.h3llo.ecoeats.ui.theme.Secondary
@@ -216,13 +225,14 @@ fun AlertCustom(
     title: AnnotatedString,
     dismiss: () -> Unit
 ) {
-    Dialog(onDismissRequest = { dismiss() },
+    Dialog(
+        onDismissRequest = { dismiss() },
         properties = DialogProperties(
             dismissOnBackPress = true,
             dismissOnClickOutside = true
         )
 
-        ) {
+    ) {
 
         Column(
             modifier = modifier
@@ -247,7 +257,7 @@ fun AlertCustom(
             }
             ImageBasic(image = R.drawable.ecoeats_logo, description = "Eco Eats Logo")
             Text(
-                text = title.text,style = TextStyle(
+                text = title.text, style = TextStyle(
                     fontSize = 14.sp,
                     textAlign = TextAlign.Center,
                     lineHeight = 22.sp,
@@ -255,7 +265,7 @@ fun AlertCustom(
 
             )
             SpacerComponent(modifier = Modifier.height(8.dp))
-            ButtonBasic(text = "Aceptar"){
+            ButtonBasic(text = "Aceptar") {
                 dismiss()
             }
             SpacerComponent(modifier = Modifier.height(8.dp))
@@ -271,6 +281,38 @@ fun AlertCustom(
 //    }
 //}
 
+@Composable
+fun LoadingScreen(
+    modifier: Modifier = Modifier,
+    showLoading : Boolean
+) {
+
+    if(showLoading){
+
+        val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.progress))
+
+        Dialog(
+            onDismissRequest = { },
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false
+            )
+        ) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Transparent)
+                .clickable(enabled = false){}
+            ){
+                LottieAnimation(composition = composition,
+                    iterations = LottieConstants.IterateForever,
+                    modifier = Modifier
+                        .size(200.dp)
+                        .align(Alignment.Center)
+                )
+            }
+        }
+    }
+}
 
 
 

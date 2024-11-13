@@ -40,6 +40,7 @@ import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import io.h3llo.ecoeats.domain.model.Dish
+import io.h3llo.ecoeats.presentation.common.LoadingScreen
 import io.h3llo.ecoeats.presentation.common.RatingBarcomponent
 import io.h3llo.ecoeats.presentation.common.TextBasic
 import io.h3llo.ecoeats.ui.theme.Secondary
@@ -58,6 +59,7 @@ fun DishesScreen(
 
     val pagerState = com.google.accompanist.pager.rememberPagerState()
 
+    /*
     if (viewModel.state.isLoading) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -66,6 +68,8 @@ fun DishesScreen(
             CircularProgressIndicator()
         }
     }
+    */
+    LoadingScreen (showLoading = viewModel.state.isLoading)
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getDishes()

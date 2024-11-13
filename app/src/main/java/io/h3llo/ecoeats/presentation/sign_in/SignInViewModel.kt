@@ -11,6 +11,7 @@ import io.h3llo.ecoeats.core.Result
 import io.h3llo.ecoeats.domain.use_cases.sign_in_use_case.SignInUseCase
 import io.h3llo.ecoeats.domain.use_cases.validate_field_use_case.ValidateFieldUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -67,6 +68,7 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch {
             try {
 
+                delay(3000) // JUST TO OBSERVE THE LOTTIE
                 /*
                 val result = validateFieldUseCase(formState.email)
 

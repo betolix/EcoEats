@@ -46,6 +46,7 @@ import io.h3llo.ecoeats.R
 import io.h3llo.ecoeats.presentation.common.AlertCustom
 import io.h3llo.ecoeats.presentation.common.ButtonBasic
 import io.h3llo.ecoeats.presentation.common.ImageBasic
+import io.h3llo.ecoeats.presentation.common.LoadingScreen
 import io.h3llo.ecoeats.presentation.common.OutlinedTextFieldBasic
 import io.h3llo.ecoeats.presentation.common.SpacerComponent
 import io.h3llo.ecoeats.presentation.common.TextBasic
@@ -66,6 +67,16 @@ fun SignInScreen(
 
         val state = viewModel.state
         val context = LocalContext.current
+
+
+//        if (viewModel.state.isLoading) {
+//            // CircularProgressIndicator()
+//            LoadingScreen(showLoading = true)
+//        }
+
+
+        LoadingScreen (showLoading = viewModel.state.isLoading)
+
 
         LaunchedEffect(key1 = state.success, key2 = state.error) {
             if (state.success != null) {
@@ -96,9 +107,7 @@ fun SignInScreen(
         }
 
 
-
-
-
+        /*
         if (state.isLoading) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -107,6 +116,7 @@ fun SignInScreen(
                 CircularProgressIndicator()
             }
         }
+        */
 
         if (state.success != null) {
             println(state.success?.email)
@@ -311,10 +321,11 @@ fun SignInContent(
             }
         )
     }
+    /*
     if (viewModel.state.isLoading) {
         CircularProgressIndicator()
     }
-
+    */
 
 }
 
