@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.h3llo.ecoeats.core.Result
 import io.h3llo.ecoeats.data.repository.DishesRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -26,6 +27,8 @@ class DishesViewModel @Inject constructor(val repository : DishesRepository) : V
         viewModelScope.launch(Dispatchers.Main) {
 
             state = state.copy(isLoading = true)
+
+            delay(5000)
 
             val response = withContext(Dispatchers.IO){
                 repository.getDishes()
