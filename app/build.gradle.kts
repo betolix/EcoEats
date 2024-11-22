@@ -122,5 +122,8 @@ dependencies {
     // LOTTIE
     implementation("com.airbnb.android:lottie-compose:6.0.0")
 
+    // PLACEHOLDER
+    implementation("com.google.accompanist:accompanist-placeholder:0.24.13-rc")
+
 
 }

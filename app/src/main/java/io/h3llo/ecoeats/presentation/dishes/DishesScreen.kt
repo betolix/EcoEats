@@ -39,6 +39,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.placeholder
+import com.google.accompanist.placeholder.shimmer
 import io.h3llo.ecoeats.domain.model.Dish
 import io.h3llo.ecoeats.presentation.common.LoadingScreen
 import io.h3llo.ecoeats.presentation.common.RatingBarcomponent
@@ -69,7 +72,7 @@ fun DishesScreen(
         }
     }
     */
-    LoadingScreen (showLoading = viewModel.state.isLoading)
+    //LoadingScreen (showLoading = viewModel.state.isLoading)
 
     LaunchedEffect(key1 = Unit) {
         viewModel.getDishes()
@@ -98,37 +101,55 @@ fun DishesScreen(
                 .padding(8.dp),
             contentAlignment = Alignment.BottomCenter
         ) {
-            viewModel.state.success?.let { dishes ->
-                val dishesFilter = dishes.filter {
-                    it.flagHeader
-                }
+
+            if (viewModel.state.isLoading) {
+
                 HorizontalPager(
-                    count = dishesFilter.count(),
+                    count = 6,
                     state = pagerState
                 ) { index ->
-                    PagerDishComponent(
-                        dish = dishesFilter[index],
+                    ShimmerPagerDishComponent(
                         context = context,
-                        onClick = {
-                            onClick(it)
-                        }
                     )
                 }
-                Row(
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    repeat(dishesFilter.size) { iteration ->
-                        val color =
-                            if (pagerState.currentPage == iteration) Color.White else Color.Gray
-                        Box(
-                            modifier = Modifier
-                                .padding(2.dp)
-                                .clip(CircleShape)
-                                .background(color)
-                                .size(8.dp)
-                        )
 
+            } else {
+
+                viewModel.state.success?.let { dishes ->
+                    val dishesFilter = dishes.filter {
+                        it.flagHeader
                     }
+
+                    HorizontalPager(
+                        count = dishesFilter.count(),
+                        state = pagerState
+                    ) { index ->
+                        PagerDishComponent(
+                            dish = dishesFilter[index],
+                            context = context,
+                            onClick = {
+                                onClick(it)
+                            }
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        repeat(dishesFilter.size) { iteration ->
+                            val color =
+                                if (pagerState.currentPage == iteration) Color.White else Color.Gray
+                            Box(
+                                modifier = Modifier
+                                    .padding(2.dp)
+                                    .clip(CircleShape)
+                                    .background(color)
+                                    .size(8.dp)
+                            )
+
+                        }
+                    }
+
                 }
             }
         }
@@ -150,6 +171,15 @@ fun DishesScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            if (viewModel.state.isLoading) {
+                items(count = 6) {
+                    ShimmerDishItem(context = context)
+                }
+
+            } else {
+
+            }
+
             viewModel.state.success?.let {
                 items(it) {
                     DishItem(
@@ -174,7 +204,7 @@ fun PagerDishComponent(
     modifier: Modifier = Modifier,
     dish: Dish,
     context: Context,
-    onClick:(Dish)-> Unit
+    onClick: (Dish) -> Unit
 ) {
     Box(modifier = modifier
         .fillMaxWidth()
@@ -228,7 +258,7 @@ fun DishItem(
     modifier: Modifier = Modifier,
     dish: Dish,
     context: Context,
-    onClick:(Dish)-> Unit
+    onClick: (Dish) -> Unit
 ) {
 
     Card(
@@ -298,6 +328,158 @@ fun DishItem(
     }
 }
 
+
+@Composable
+fun ShimmerDishItem(
+    modifier: Modifier = Modifier,
+    context: Context,
+) {
+
+    Card(
+        border = BorderStroke(
+            width = 2.dp,
+            color = Secondary
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .placeholder(
+                visible = true,
+                color = Color.Gray,
+                shape = RoundedCornerShape(8.dp),
+                highlight = PlaceholderHighlight.shimmer(
+                    highlightColor = Color.Green
+                )
+            )
+            .clickable {
+
+            }
+    ) {
+        // Text(text = "Hola")
+        Column(
+            modifier = Modifier.padding(8.dp)
+        ) {
+            // Image(
+            //    painter = painterResource(R.drawable.icon_dish_template),
+            //    "Icon dish template",
+            //    modifier = Modifier
+            //        .fillMaxWidth()
+            //        .height(100.dp),
+            //    contentScale = ContentScale.Crop
+            // )
+            AsyncImage(
+                model = ImageRequest.Builder(context)
+                    .data("")
+                    .crossfade(500)
+                    .build(),
+                contentDescription = "Dish",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(Color.LightGray),
+                contentScale = ContentScale.Crop
+
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            TextBasic(
+                text = "",
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+                    .background(Color.LightGray)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            TextBasic(
+                text = "Carbohidratos",
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal
+                ),
+                modifier = Modifier.background(Color.LightGray)
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            TextBasic(
+                text = "",
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Secondary
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp)
+                    .background(Color.LightGray)
+            )
+
+            RatingBarcomponent(currentRating = 0)
+
+        }
+    }
+}
+
+
+@Composable
+fun ShimmerPagerDishComponent(
+    modifier: Modifier = Modifier,
+    context: Context,
+) {
+    Box(modifier = modifier
+        .fillMaxWidth()
+        .placeholder(
+            visible = true,
+            color = Color.Gray,
+            shape = RoundedCornerShape(8.dp),
+            highlight = PlaceholderHighlight.shimmer(
+                highlightColor = Color.Yellow
+            )
+        )
+        .clickable {
+        }
+    )
+    {
+        AsyncImage(
+            model = ImageRequest.Builder(context)
+                .data("")
+                .crossfade(500)
+                .build(),
+            contentDescription = "",
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp)
+                .clip(RoundedCornerShape(16.dp)),
+            contentScale = ContentScale.Crop
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(top = 16.dp)
+        ) {
+            TextBasic(
+                text = "", style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            TextBasic(
+                text = "", style = TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+            )
+
+        }
+    }
+
+}
+
+
 //@PreviewWithoutBackground
 //@Composable
 //private fun DishItemPreview(modifier: Modifier = Modifier) {
@@ -317,3 +499,5 @@ fun DishItem(
 //        )
 //    )
 //}
+
+
