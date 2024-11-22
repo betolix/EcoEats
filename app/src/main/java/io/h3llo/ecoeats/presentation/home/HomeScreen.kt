@@ -54,7 +54,7 @@ fun HomeScreen(
             badgeCount = 4
         ),
         BottomNavigationItem(
-            title = "Settingd",
+            title = "Settings",
             selectedIcon = Icons.Filled.Settings,
             unselectedIcon = Icons.Outlined.Settings,
             route = ScreenMenu.Settings.route,
