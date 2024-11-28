@@ -1,6 +1,7 @@
 package io.h3llo.ecoeats.data.networking.endpoints
 
 import io.h3llo.ecoeats.data.networking.model.DishResponse
+import io.h3llo.ecoeats.data.networking.model.DocumentTypeResponse
 import io.h3llo.ecoeats.data.networking.model.LoginRequest
 import io.h3llo.ecoeats.data.networking.model.LoginResponse
 import retrofit2.Response
@@ -18,5 +19,8 @@ interface MethodsApi {
     suspend fun getDishes(
         // @Header("Authorization") token:String
     ) : Response<DishResponse>
+
+    @GET("api/documenttype")
+    suspend fun getDocumentTypes(): Response<DocumentTypeResponse>
 
 }

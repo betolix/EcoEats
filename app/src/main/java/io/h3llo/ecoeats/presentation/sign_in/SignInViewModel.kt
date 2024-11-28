@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.h3llo.ecoeats.core.Result
+import io.h3llo.ecoeats.domain.use_cases.get_and_save_documents.GetAndSaveDocumentsUseCase
 import io.h3llo.ecoeats.domain.use_cases.sign_in_use_case.SignInUseCase
 import io.h3llo.ecoeats.domain.use_cases.validate_field_use_case.ValidateFieldUseCase
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,8 @@ class SignInViewModel @Inject constructor(
 
     // val repository: AuthRepository
     val signInUseCase: SignInUseCase,
-    val validateFieldUseCase: ValidateFieldUseCase
+    val validateFieldUseCase: ValidateFieldUseCase,
+    val getAndSaveDocumentsUseCase: GetAndSaveDocumentsUseCase
 
 ) : ViewModel() {
 
@@ -31,28 +33,40 @@ class SignInViewModel @Inject constructor(
     //SCREEN STATE
     var state by mutableStateOf(LoginScreenState())
 
+    // INIT BLOCK
+    init {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                getAndSaveDocumentsUseCase()
+            }
+        }
+    }
+
     //EVENTS
-    fun onEvent( event : LoginFormEvent){
-        when(event){
+    fun onEvent(event: LoginFormEvent) {
+        when (event) {
             is LoginFormEvent.EmailChange -> {
                 formState = formState.copy(email = event.email)
             }
+
             is LoginFormEvent.PasswordChange -> {
-                formState = formState.copy(password =  event.password )
+                formState = formState.copy(password = event.password)
             }
+
             LoginFormEvent.Submit -> {
                 signIn()
             }
+
             is LoginFormEvent.VisualTransformationChange -> {
                 formState = formState.copy(visualTransformation = event.visualTransformation)
             }
 
             LoginFormEvent.onFocusChange -> {
-                formState = formState.copy(emailError = null )
+                formState = formState.copy(emailError = null)
             }
 
             is LoginFormEvent.showDialog -> {
-                formState = formState.copy( showDialog = event.isVisible )
+                formState = formState.copy(showDialog = event.isVisible)
             }
         }
     }
@@ -80,27 +94,29 @@ class SignInViewModel @Inject constructor(
                 }
                  */
 
-                val response = withContext(Dispatchers.IO){
+                val response = withContext(Dispatchers.IO) {
                     // repository.signIn(formState.email, formState.password)
                     signInUseCase(formState.email, formState.password)
                 }
 
-                when(response){
+                when (response) {
                     is Result.Error -> {
-                        state = state.copy(isLoading = false, error = response.message, success = null)
+                        state =
+                            state.copy(isLoading = false, error = response.message, success = null)
                     }
+
                     is Result.Success -> {
-                        state = state.copy(isLoading = false, success =  response.data, error = null)
+                        state = state.copy(isLoading = false, success = response.data, error = null)
                     }
 
                     is Result.Validation -> {
                         formState = formState.copy(emailError = response.message)
-                        state = state.copy(isLoading = false )
+                        state = state.copy(isLoading = false)
 
                     }
                 }
 
-            }catch (ex:Exception){
+            } catch (ex: Exception) {
                 state = state.copy(error = ex.message, isLoading = false)
             }
 

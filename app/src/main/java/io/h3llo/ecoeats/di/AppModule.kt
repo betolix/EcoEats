@@ -11,9 +11,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.h3llo.ecoeats.data.database.dao.DocumentTypeDao
 import io.h3llo.ecoeats.data.mapper.AuthDtoMapper
+import io.h3llo.ecoeats.data.networking.endpoints.MethodsApi
+import io.h3llo.ecoeats.data.repository.DocumentTypeRepositoryImp
 import io.h3llo.ecoeats.data.repository.RecipeRepositoryImp
 import io.h3llo.ecoeats.domain.repository.AuthRepository
+import io.h3llo.ecoeats.domain.repository.DocumentTypeRepository
 import io.h3llo.ecoeats.domain.repository.RecipeRepository
 import io.h3llo.ecoeats.domain.use_cases.save_recipe_use_case.SaveRecipeUseCase
 import io.h3llo.ecoeats.domain.use_cases.sign_in_use_case.SignInUseCase
@@ -86,12 +90,18 @@ class AppModule {
     fun provideFirebaseStorage(): FirebaseStorage {
         return FirebaseStorage.getInstance()
     }
-@Provides
+
+    @Provides
     @Singleton
     fun provideSaveRecipeUseCase(recipeRepository: RecipeRepository): SaveRecipeUseCase {
         return SaveRecipeUseCase(recipeRepository)
     }
 
+    @Provides
+    @Singleton
+    fun provideDocumentTypeRepository( api: MethodsApi, documentTypeDao: DocumentTypeDao) : DocumentTypeRepository{
+        return DocumentTypeRepositoryImp( api, documentTypeDao )
+    }
 
 
 

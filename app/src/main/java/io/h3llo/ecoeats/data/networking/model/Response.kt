@@ -1,6 +1,7 @@
 package io.h3llo.ecoeats.data.networking.model
 
 import com.google.gson.annotations.SerializedName
+import io.h3llo.ecoeats.data.database.model.DocumentTypeEntity
 import java.io.Serializable
 
 data class LoginResponse(
@@ -37,3 +38,26 @@ data class DishDto(
     @SerializedName("rating") val rating: Double,
     @SerializedName("thumbails") val thumbnails: String
 ) : Serializable
+
+data class DocumentTypeResponse(
+    @SerializedName ("message") val message: String,
+    @SerializedName ("success") val success: Boolean,
+    @SerializedName("data") val data: List<DocumentTypeDto>
+)
+
+data class DocumentTypeDto (
+    @SerializedName("id") val id:Int,
+    @SerializedName("description") val description: String
+)
+
+fun List<DocumentTypeDto>.mapToEntity() : List<DocumentTypeEntity> = map {
+    DocumentTypeEntity(
+        id = it.id,
+        description =  it.description,
+        status = "P"
+    )
+}
+
+
+
+
