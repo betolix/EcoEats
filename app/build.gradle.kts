@@ -4,6 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -84,6 +85,7 @@ dependencies {
 //    //NAVIGATION COMPOSE
 //    implementation ("androidx.navigation:navigation-compose:2.7.7")
     implementation ( libs.navigation.compose )
+    implementation ( libs.kotlin.serialization.json )
 
     //PAGER
     implementation (libs.accompanist.pager)
