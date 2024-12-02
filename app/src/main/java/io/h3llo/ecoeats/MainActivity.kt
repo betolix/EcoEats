@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
+import io.h3llo.ecoeats.navigation.ExampleNavigation
 import io.h3llo.ecoeats.navigation.SetupNavigation
 
 @AndroidEntryPoint
@@ -39,7 +40,8 @@ class MainActivity : ComponentActivity() {
          */
 
         setContent {
-            SetupNavigation()
+            // SetupNavigation()
+            ExampleNavigation()
         }
     }
 }
