@@ -35,11 +35,13 @@ class SignInViewModel @Inject constructor(
 
     // INIT BLOCK
     init {
+        /*
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 getAndSaveDocumentsUseCase()
             }
         }
+        */
     }
 
     //EVENTS
