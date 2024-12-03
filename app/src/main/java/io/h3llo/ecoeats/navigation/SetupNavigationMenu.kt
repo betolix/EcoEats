@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.google.gson.Gson
 import io.h3llo.ecoeats.domain.model.Dish
 import io.h3llo.ecoeats.presentation.detail.DetailScreen
@@ -24,32 +25,34 @@ fun SetupNavigationMenu(
     // INVOCAR AL GRAFO
     NavHost(
         navController = navController,
-        startDestination = ScreenMenu.Dishes.route
+        startDestination = Dishes
     ){
-        composable (route = ScreenMenu.Dishes.route){
+        composable<Dishes>{
             onChangeVisibleBottomBar(true)
             DishesScreen(
                 paddingValues = paddingValues,
                 onClick ={
                     val dishJson = Gson().toJson(it)
                     //navController.navigate("detail_screen/?dishJson=$dishJson")
-                    navController.navigate(ScreenMenu.Detail.createRoute(dishJson))
+                    //navController.navigate(ScreenMenu.Detail.createRoute(dishJson))
+                    navController.navigate(Detail(dishJson = dishJson))
                 }
             )
         }
-        composable (route = ScreenMenu.Search.route){
+        composable<Search>{
             onChangeVisibleBottomBar(true)
             RecipeScreen( paddingValues = paddingValues )
         }
-        composable (route = ScreenMenu.Settings.route){
+        composable<Settings>{
             onChangeVisibleBottomBar(true)
             //SettingsScreen( paddingValues = paddingValues )
             RecipeRegistrationScreen( paddingValues = paddingValues)
         }
-        composable (route = ScreenMenu.Detail.route){
+        composable<Detail>{
             onChangeVisibleBottomBar(false)
-            val dishJson = it.arguments?.getString("dishJson")
-            val dish = Gson().fromJson(dishJson, Dish::class.java)
+            // val dishJson = it.arguments?.getString("dishJson")
+            val data = it.toRoute<Detail>()
+            val dish = Gson().fromJson(data.dishJson, Dish::class.java)
             requireNotNull(dish)
             DetailScreen(dish = dish)
         }

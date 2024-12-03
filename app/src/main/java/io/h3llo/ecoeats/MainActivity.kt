@@ -40,8 +40,8 @@ class MainActivity : ComponentActivity() {
          */
 
         setContent {
-            // SetupNavigation()
-            ExampleNavigation()
+            SetupNavigation()
+            //ExampleNavigation()
         }
     }
 }

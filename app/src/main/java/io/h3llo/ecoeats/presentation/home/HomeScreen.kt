@@ -26,7 +26,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import io.h3llo.ecoeats.navigation.ScreenMenu
+import io.h3llo.ecoeats.navigation.Dishes
+import io.h3llo.ecoeats.navigation.Search
+import io.h3llo.ecoeats.navigation.Settings
 import io.h3llo.ecoeats.navigation.SetupNavigationMenu
 import io.h3llo.ecoeats.presentation.common.TopBarComponent
 
@@ -42,14 +44,14 @@ fun HomeScreen(
             title = "Dishes",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
-            route = ScreenMenu.Dishes.route,
+            route = Dishes,
             hasNews = false,
         ),
         BottomNavigationItem(
             title = "Search",
             selectedIcon = Icons.Filled.Search,
             unselectedIcon = Icons.Outlined.Search,
-            route = ScreenMenu.Search.route,
+            route = Search,
             hasNews = false,
             badgeCount = 4
         ),
@@ -57,7 +59,7 @@ fun HomeScreen(
             title = "Settings",
             selectedIcon = Icons.Filled.Settings,
             unselectedIcon = Icons.Outlined.Settings,
-            route = ScreenMenu.Settings.route,
+            route = Settings,
             hasNews = true,
         ),
 

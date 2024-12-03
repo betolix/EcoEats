@@ -1,5 +1,8 @@
 package io.h3llo.ecoeats.navigation
 
+import kotlinx.serialization.Serializable
+
+/*
 sealed class ScreenMenu (val route:String){
 
     object Dishes : ScreenMenu(route = "dishes_screen")
@@ -10,3 +13,16 @@ sealed class ScreenMenu (val route:String){
     }
     //object RecipeRegistrationScreen : ScreenMenu(route = "recipes_register")
 }
+*/
+
+@Serializable
+object Dishes
+
+@Serializable
+object Search
+
+@Serializable
+object Settings
+
+@Serializable
+data class Detail (val dishJson:String)

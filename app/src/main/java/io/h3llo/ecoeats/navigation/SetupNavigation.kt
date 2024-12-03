@@ -17,7 +17,8 @@ fun SetupNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Welcome
+        //startDestination = Welcome
+        startDestination = SignIn
         //startDestination = Screen.Welcome.route
 
     ) {
