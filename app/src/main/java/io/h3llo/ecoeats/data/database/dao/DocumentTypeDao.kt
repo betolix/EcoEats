@@ -15,7 +15,7 @@ interface DocumentTypeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE )
     fun insert( documentTypeEntity: DocumentTypeEntity)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE )
     fun insertAll(documentTypes: List<DocumentTypeEntity>)
 
     @Update

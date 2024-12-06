@@ -42,6 +42,10 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.OneTimeWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import io.h3llo.ecoeats.R
 import io.h3llo.ecoeats.presentation.common.AlertCustom
 import io.h3llo.ecoeats.presentation.common.ButtonBasic
@@ -51,6 +55,8 @@ import io.h3llo.ecoeats.presentation.common.OutlinedTextFieldBasic
 import io.h3llo.ecoeats.presentation.common.SpacerComponent
 import io.h3llo.ecoeats.presentation.common.TextBasic
 import io.h3llo.ecoeats.ui.theme.Primary
+import io.h3llo.ecoeats.workers.SyncWorkManager
+import java.util.concurrent.TimeUnit
 
 @Composable
 fun SignInScreen(
@@ -76,6 +82,25 @@ fun SignInScreen(
 
 
         LoadingScreen (showLoading = viewModel.state.isLoading)
+
+        LaunchedEffect(key1 = Unit) {
+            /*val worker = OneTimeWorkRequest.Builder(
+                SyncWorkManager::class.java
+            ).build()*/
+
+            val worker = PeriodicWorkRequestBuilder<SyncWorkManager>(
+                15, TimeUnit.MINUTES
+            ).build()
+
+            // WorkManager.getInstance(context).enqueue(worker)
+
+            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+                "SyncData",
+                ExistingPeriodicWorkPolicy.REPLACE,
+                worker
+
+            )
+        }
 
 
         LaunchedEffect(key1 = state.success, key2 = state.error) {

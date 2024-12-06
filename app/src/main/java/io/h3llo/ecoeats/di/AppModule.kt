@@ -19,6 +19,7 @@ import io.h3llo.ecoeats.data.repository.RecipeRepositoryImp
 import io.h3llo.ecoeats.domain.repository.AuthRepository
 import io.h3llo.ecoeats.domain.repository.DocumentTypeRepository
 import io.h3llo.ecoeats.domain.repository.RecipeRepository
+import io.h3llo.ecoeats.domain.use_cases.get_and_save_documents.GetAndSaveDocumentsUseCase
 import io.h3llo.ecoeats.domain.use_cases.save_recipe_use_case.SaveRecipeUseCase
 import io.h3llo.ecoeats.domain.use_cases.sign_in_use_case.SignInUseCase
 import io.h3llo.ecoeats.domain.use_cases.validate_field_use_case.ValidateFieldUseCase
@@ -103,6 +104,11 @@ class AppModule {
         return DocumentTypeRepositoryImp( api, documentTypeDao )
     }
 
+    @Provides
+    @Singleton
+    fun provideGetAndSaveDocumentUseCase(documentTypeRepository: DocumentTypeRepository) : GetAndSaveDocumentsUseCase{
+        return GetAndSaveDocumentsUseCase(documentTypeRepository)
+    }
 
 
 }
