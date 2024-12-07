@@ -54,6 +54,7 @@ import io.h3llo.ecoeats.presentation.common.LoadingScreen
 import io.h3llo.ecoeats.presentation.common.OutlinedTextFieldBasic
 import io.h3llo.ecoeats.presentation.common.SpacerComponent
 import io.h3llo.ecoeats.presentation.common.TextBasic
+import io.h3llo.ecoeats.presentation.util.Util.scheduleWork
 import io.h3llo.ecoeats.ui.theme.Primary
 import io.h3llo.ecoeats.workers.SyncWorkManager
 import java.util.concurrent.TimeUnit
@@ -88,6 +89,8 @@ fun SignInScreen(
                 SyncWorkManager::class.java
             ).build()*/
 
+
+            /*
             val worker = PeriodicWorkRequestBuilder<SyncWorkManager>(
                 15, TimeUnit.MINUTES
             ).build()
@@ -99,7 +102,9 @@ fun SignInScreen(
                 ExistingPeriodicWorkPolicy.REPLACE,
                 worker
 
-            )
+            ) */
+
+            context.scheduleWork()
         }
 
 

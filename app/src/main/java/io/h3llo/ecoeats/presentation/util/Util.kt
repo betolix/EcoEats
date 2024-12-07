@@ -6,7 +6,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.provider.MediaStore
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import io.h3llo.ecoeats.workers.SyncWorkManager
 import java.io.ByteArrayOutputStream
+import java.util.concurrent.TimeUnit
 
 object Util {
 
@@ -31,5 +36,19 @@ object Util {
 
     }
 
+    fun Context.scheduleWork(){
+
+        val worker = PeriodicWorkRequestBuilder<SyncWorkManager>(
+            15, TimeUnit.MINUTES
+        ).build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "SyncData",
+            ExistingPeriodicWorkPolicy.REPLACE,
+            worker
+
+        )
+
+    }
 
 }
