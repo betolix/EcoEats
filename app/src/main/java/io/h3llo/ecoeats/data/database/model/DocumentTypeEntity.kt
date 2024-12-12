@@ -17,6 +17,9 @@ data class DocumentTypeEntity(
     val description: String,
 
     @ColumnInfo(name = "status")
-    val status: String
+    val status: Int,//String
+
+    @ColumnInfo(name = "user")
+    var user: String?
 
 )

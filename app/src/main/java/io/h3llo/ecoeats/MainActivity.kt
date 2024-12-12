@@ -14,6 +14,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // enableEdgeToEdge()
 
+        //BuildConfig.URL_BASE
+
         // val preferences = getSharedPreferences("PREFERENCES_TEST",0).edit()
         // preferences.putString("KEY", "123")
         // preferences.apply()

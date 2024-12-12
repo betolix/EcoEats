@@ -7,7 +7,7 @@ import io.h3llo.ecoeats.data.database.model.DocumentTypeEntity
 
 @Database(
     entities = [DocumentTypeEntity::class],
-    version = 1
+    version = 3
 )
 abstract class AppDatabase : RoomDatabase(){
 

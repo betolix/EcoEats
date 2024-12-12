@@ -54,7 +54,8 @@ fun List<DocumentTypeDto>.mapToEntity() : List<DocumentTypeEntity> = map {
     DocumentTypeEntity(
         id = it.id,
         description =  it.description,
-        status = "P"
+        status = 1, //"P"
+        user = ""
     )
 }
 

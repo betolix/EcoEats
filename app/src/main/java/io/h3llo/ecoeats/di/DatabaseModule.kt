@@ -9,6 +9,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.h3llo.ecoeats.data.database.AppDatabase
 import io.h3llo.ecoeats.data.database.dao.DocumentTypeDao
+import io.h3llo.ecoeats.data.database.migrations.MIGRATIONS_1_2
+import io.h3llo.ecoeats.data.database.migrations.MIGRATIONS_2_3
 import javax.inject.Singleton
 
 @Module
@@ -21,7 +23,8 @@ class DatabaseModule {
         context,
         AppDatabase::class.java,
         "DB_ECOEATS"
-    ).build()
+    ).addMigrations(MIGRATIONS_1_2, MIGRATIONS_2_3)
+        .build()
 
     @Provides
     @Singleton
