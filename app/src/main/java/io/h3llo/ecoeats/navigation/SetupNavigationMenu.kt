@@ -54,7 +54,7 @@ fun SetupNavigationMenu(
             val data = it.toRoute<Detail>()
             val dish = Gson().fromJson(data.dishJson, Dish::class.java)
             requireNotNull(dish)
-            DetailScreen(dish = dish)
+            DetailScreen(dish = dish, paddingValues = paddingValues)
         }
 //        composable(route = ScreenMenu.RecipeRegistrationScreen.route){
 //            RecipeRegistrationScreen( paddingValues = paddingValues)
