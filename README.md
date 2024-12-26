@@ -1,19 +1,37 @@
 # EcoEats
 
-## EcoEats is an Android application designed to help users discover and manage eco-friendly recipes. The app is built using Kotlin and leverages modern Android development practices, including Jetpack Compose for UI, Hilt for dependency injection, and Firebase for some backend services. Other backend services such as Authentication and Some storage are handled in a separate backend.
+## EcoEats is an Android application designed to help users discover and manage eco-friendly recipes. The app is built using Kotlin and leverages modern Android development practices, including Jetpack Compose for UI, Hilt for dependency injection, and Firebase for some backend services. Other backend services such as Authentication and some storage are handled in a separate backend.
 
 # IMAGENES Diagram or video that explain a little bit better
+
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/001.png?raw=true)
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/002.png?raw=true)
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/003.png?raw=true)
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/004.png?raw=true)
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/005.png?raw=true)
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/006.png?raw=true)
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/007.png?raw=true)
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/008.png?raw=true)
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/010.png?raw=true)
+![alt text](https://github.com/betolix/EcoEats/blob/main/images/011.png?raw=true)
+
 
 ### INTRO PARAGRAPH ( SEO Value keywords ) Deeper dive
 
 Features
-Recipe Discovery: Browse a variety of eco-friendly recipes.
 
-Detailed Recipe View: View detailed information about each recipe, including ingredients and nutritional information.
+Splash Screen
+
+Tutorial Screens (3)
 
 User Authentication: Secure user authentication using a backend.
 
 Encrypted Shared Preferences: Securely store user data using encrypted shared preferences.
+
+Recipe Discovery: Browse a variety of eco-friendly recipes.
+
+Detailed Recipe View: View detailed information about each recipe, including ingredients and nutritional information.
+
 
 Navigation: Seamless navigation between different screens using Jetpack Navigation Compose.
 
