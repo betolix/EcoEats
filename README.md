@@ -21,20 +21,25 @@
 
 ### Features:
 
-Splash Screen
+Welcome Screen
 
-Tutorial Screens (3)
+OnBoarding Screens (3) - Horizontal Pager - Navigation (navigationCompose V2.8.3)
 
-User Authentication: Secure user authentication using a backend.
+Navigation: Seamless navigation between different screens using Jetpack Navigation Compose.
+
+Login Screen - User Authentication: Secure user authentication using a backend, Encrypted Token stored in Shared Preferences, DI ( Hilt ) for context.
 
 Encrypted Shared Preferences: Securely store user data using encrypted shared preferences.
 
-Recipe Discovery: Browse a variety of eco-friendly recipes.
+Scaffold ( Home Screen - Search Screen - Upload Screen ) 
 
-Detailed Recipe View: View detailed information about each recipe, including ingredients and nutritional information.
+Home Screen ( Recipe Discovery ): Browse a variety of eco-friendly recipes.
 
+Detailed Recipe Screen: View detailed information about each recipe, including ingredients and nutritional information.
 
-Navigation: Seamless navigation between different screens using Jetpack Navigation Compose.
+Search Screen: Search recipes obtained from Firebase Backend.
+
+Upload Screen: Upload pictures and recipes.
 
 Technologies Used
 
@@ -46,7 +51,9 @@ Coil: Image loading library for Android.
 Accompanist: Libraries for Jetpack Compose, including Pager and Placeholder.
 
 Project Structure
+
 src/main/java/io/h3llo/ecoeats: Contains the main source code for the application.
+
 di: Dependency injection modules.
 domain: Domain models and business logic.
 navigation: Navigation setup and routes.
