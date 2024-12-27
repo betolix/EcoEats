@@ -2,8 +2,8 @@
 
 ## EcoEats is an Android application designed to help users discover and manage eco-friendly recipes. The app is built using Kotlin and leverages modern Android development practices, including Jetpack Compose for UI, Hilt for dependency injection, and Firebase for some backend services. Other backend services such as Authentication and some storage are handled in a separate backend.
 
-# IMAGENES Diagram or video that explain a little bit better
-
+<!--- # IMAGENES Diagram or video that explain a little bit better -->
+# Screenhots
 ![alt text](https://github.com/betolix/EcoEats/blob/main/images/001.png?raw=true)
 ![alt text](https://github.com/betolix/EcoEats/blob/main/images/002.png?raw=true)
 ![alt text](https://github.com/betolix/EcoEats/blob/main/images/003.png?raw=true)
@@ -16,9 +16,10 @@
 ![alt text](https://github.com/betolix/EcoEats/blob/main/images/011.png?raw=true)
 
 
-### INTRO PARAGRAPH ( SEO Value keywords ) Deeper dive
+<!--- ### INTRO PARAGRAPH ( SEO Value keywords ) Deeper dive -->
+# A deeper dive
 
-Features
+### Features:
 
 Splash Screen
 
